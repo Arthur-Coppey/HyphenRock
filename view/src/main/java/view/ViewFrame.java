@@ -19,20 +19,22 @@ import contract.IModel;
 class ViewFrame extends JFrame implements KeyListener {
 
 	/** The model. */
-	private IModel						model;
+	private IModel model;
 
 	/** The controller. */
-	private IController				controller;
+	private IController controller;
 	/** The Constant serialVersionUID. */
-	private static final long	serialVersionUID	= -697358409737458175L;
+	private static final long serialVersionUID = -697358409737458175L;
+	private static final int FRAMEHEIGHT = 500;
+	private static final int FRAMEWIDTH = 500;
 
 	/**
 	 * Instantiates a new view frame.
 	 *
 	 * @param model
-	 *          the model
+	 *            the model
 	 * @throws HeadlessException
-	 *           the headless exception
+	 *             the headless exception
 	 */
 	public ViewFrame(final IModel model) throws HeadlessException {
 		this.buildViewFrame(model);
@@ -42,9 +44,9 @@ class ViewFrame extends JFrame implements KeyListener {
 	 * Instantiates a new view frame.
 	 *
 	 * @param model
-	 *          the model
+	 *            the model
 	 * @param gc
-	 *          the gc
+	 *            the gc
 	 */
 	public ViewFrame(final IModel model, final GraphicsConfiguration gc) {
 		super(gc);
@@ -55,11 +57,11 @@ class ViewFrame extends JFrame implements KeyListener {
 	 * Instantiates a new view frame.
 	 *
 	 * @param model
-	 *          the model
+	 *            the model
 	 * @param title
-	 *          the title
+	 *            the title
 	 * @throws HeadlessException
-	 *           the headless exception
+	 *             the headless exception
 	 */
 	public ViewFrame(final IModel model, final String title) throws HeadlessException {
 		super(title);
@@ -70,11 +72,11 @@ class ViewFrame extends JFrame implements KeyListener {
 	 * Instantiates a new view frame.
 	 *
 	 * @param model
-	 *          the model
+	 *            the model
 	 * @param title
-	 *          the title
+	 *            the title
 	 * @param gc
-	 *          the gc
+	 *            the gc
 	 */
 	public ViewFrame(final IModel model, final String title, final GraphicsConfiguration gc) {
 		super(title, gc);
@@ -94,7 +96,7 @@ class ViewFrame extends JFrame implements KeyListener {
 	 * Sets the controller.
 	 *
 	 * @param controller
-	 *          the new controller
+	 *            the new controller
 	 */
 	protected void setController(final IController controller) {
 		this.controller = controller;
@@ -113,7 +115,7 @@ class ViewFrame extends JFrame implements KeyListener {
 	 * Sets the model.
 	 *
 	 * @param model
-	 *          the new model
+	 *            the new model
 	 */
 	private void setModel(final IModel model) {
 		this.model = model;
@@ -123,7 +125,7 @@ class ViewFrame extends JFrame implements KeyListener {
 	 * Builds the view frame.
 	 *
 	 * @param model
-	 *          the model
+	 *            the model
 	 */
 	private void buildViewFrame(final IModel model) {
 		this.setModel(model);
@@ -131,7 +133,8 @@ class ViewFrame extends JFrame implements KeyListener {
 		this.setResizable(false);
 		this.addKeyListener(this);
 		this.setContentPane(new ViewPanel(this));
-		this.setSize(400 + this.getInsets().left + this.getInsets().right, 60 + this.getInsets().top + this.getInsets().bottom);
+		this.setSize(400 + this.getInsets().left + this.getInsets().right,
+				60 + this.getInsets().top + this.getInsets().bottom);
 		this.setLocationRelativeTo(null);
 	}
 
@@ -139,7 +142,7 @@ class ViewFrame extends JFrame implements KeyListener {
 	 * Prints the message.
 	 *
 	 * @param message
-	 *          the message
+	 *            the message
 	 */
 	public void printMessage(final String message) {
 		JOptionPane.showMessageDialog(null, message);
@@ -150,6 +153,7 @@ class ViewFrame extends JFrame implements KeyListener {
 	 *
 	 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
 	 */
+	@Override
 	public void keyTyped(final KeyEvent e) {
 
 	}
@@ -159,6 +163,7 @@ class ViewFrame extends JFrame implements KeyListener {
 	 *
 	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
 	 */
+	@Override
 	public void keyPressed(final KeyEvent e) {
 		this.getController().orderPerform(View.keyCodeToControllerOrder(e.getKeyCode()));
 	}
@@ -168,6 +173,7 @@ class ViewFrame extends JFrame implements KeyListener {
 	 *
 	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
 	 */
+	@Override
 	public void keyReleased(final KeyEvent e) {
 
 	}
