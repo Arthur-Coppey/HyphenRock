@@ -5,10 +5,10 @@ public class Camera {
 	 *
 	 */
 
-	private int WIDTH;
-	private int HEIGHT;
-	private int x;
-	private int y;
+	private int WIDTH = 500;
+	private int HEIGHT = 500;
+	private int x = 0;
+	private int y = 0;
 
 	public Camera() {
 		// TODO Auto-generated constructor stub
