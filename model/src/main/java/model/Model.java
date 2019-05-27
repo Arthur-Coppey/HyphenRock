@@ -1,10 +1,9 @@
 package model;
 
-import java.sql.SQLException;
 import java.util.Observable;
 
 import contract.IModel;
-import entity.HelloWorld;
+import model.Element.Element;
 
 /**
  * The Class Model.
@@ -14,72 +13,53 @@ import entity.HelloWorld;
 public final class Model extends Observable implements IModel {
 
 	/** The helloWorld. */
-	private HelloWorld helloWorld;
+	private Element[][] map;
+	private int score;
+	private final MapMaker mapMaker;
 
 	/**
 	 * Instantiates a new model.
 	 */
 	public Model() {
-		this.helloWorld = new HelloWorld();
+
+		this.mapMaker = new MapMaker();
+	}
+
+	public Element[][] getMap(int level) {
+		return this.map;
+	}
+
+	public void setMap(Element[][] map) {
+		this.map = map;
 	}
 
 	/**
-     * Gets the hello world.
-     *
-     * @return the hello world
-     */
-	/*
-	 * (non-Javadoc)
+	 * Gets the observable.
 	 *
-	 * @see contract.IModel#getMessage()
+	 * @return the observable
 	 */
-	public HelloWorld getHelloWorld() {
-		return this.helloWorld;
-	}
-
-	/**
-     * Sets the hello world.
-     *
-     * @param helloWorld
-     *            the new hello world
-     */
-	private void setHelloWorld(final HelloWorld helloWorld) {
-		this.helloWorld = helloWorld;
-		this.setChanged();
-		this.notifyObservers();
-	}
-
-	/**
-     * Load hello world.
-     *
-     * @param code
-     *            the code
-     */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getMessage(java.lang.String)
-	 */
-	public void loadHelloWorld(final String code) {
-		try {
-			final DAOHelloWorld daoHelloWorld = new DAOHelloWorld(DBConnection.getInstance().getConnection());
-			this.setHelloWorld(daoHelloWorld.find(code));
-		} catch (final SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-     * Gets the observable.
-     *
-     * @return the observable
-     */
 	/*
 	 * (non-Javadoc)
 	 *
 	 * @see contract.IModel#getObservable()
 	 */
+	@Override
 	public Observable getObservable() {
 		return this;
 	}
+
+	public int getScore() {
+		return this.score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	@Override
+	public void gameUpdate(String code) {
+		// TODO Auto-generated method stub
+
+	}
+
 }

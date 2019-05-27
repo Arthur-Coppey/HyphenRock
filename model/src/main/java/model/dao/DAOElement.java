@@ -1,51 +1,55 @@
-package model;
+package model.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- * The Class DAOEntity.
+ * The Class DAOElement.
  *
  * @author Jean-Aymeric Diet
  *
  * @param <E>
  *        the element type
  */
-abstract class DAOEntity<E> {
-    
+public class DAOElement<E> {
+
     /** The connection. */
     private final Connection connection;
-    
+
     /**
-     * Instantiates a new DAO entity.
+     * Instantiates a new DAO element.
      *
      * @param connection
      *                   the connection
      * @throws SQLException
      *                      the SQL exception
      */
-    public DAOEntity(final Connection connection) throws SQLException {
+    public DAOElement(final Connection connection) throws SQLException {
         this.connection = connection;
     }
-    
+
     /**
      * Creates the.
      *
-     * @param entity
-     *               the entity
+     * @param element
+     *                the element
      * @return true, if successful
      */
-    public abstract boolean create(E entity);
-    
+    public boolean create(final E element) {
+        return false;
+    }
+
     /**
      * Delete.
      *
-     * @param entity
-     *               the entity
+     * @param element
+     *                the entity
      * @return true, if successful
      */
-    public abstract boolean delete(E entity);
-    
+    public boolean delete(final E element) {
+        return false;
+    }
+
     /**
      * Find.
      *
@@ -53,8 +57,10 @@ abstract class DAOEntity<E> {
      *           the id
      * @return the e
      */
-    public abstract E find(int id);
-    
+    public E find(final int id) {
+        return null;
+    }
+
     /**
      * Find.
      *
@@ -62,17 +68,21 @@ abstract class DAOEntity<E> {
      *             the code
      * @return the e
      */
-    public abstract E find(String code);
-    
+    public E find(final String code) {
+        return null;
+    }
+
     /**
      * Update.
      *
-     * @param entity
+     * @param element
      *               the entity
      * @return true, if successful
      */
-    public abstract boolean update(E entity);
-    
+    public boolean update(final E element) {
+        return false;
+    }
+
     /**
      * Gets the connection.
      *
@@ -81,5 +91,5 @@ abstract class DAOEntity<E> {
     protected Connection getConnection() {
         return this.connection;
     }
-    
+
 }
