@@ -45,6 +45,7 @@ class ViewPanel extends JPanel implements Observer {
     @Override
     protected void paintComponent(final Graphics graphics) {
         graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
+        graphics.drawString("a string", 10, 20);
     }
     
     /**
@@ -66,3 +67,4 @@ class ViewPanel extends JPanel implements Observer {
         this.viewFrame = viewFrame;
     }
 }
+

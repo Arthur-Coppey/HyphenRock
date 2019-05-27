@@ -9,11 +9,19 @@ import java.util.Observable;
  */
 public interface IModel {
 
-    /**
-     * Gets the observable.
-     *
-     * @return the observable
-     */
-    Observable getObservable();
+	/**
+	 * Gets the observable.
+	 *
+	 * @return the observable
+	 */
+	Observable getObservable();
+
+	/**
+	 * Load the message.
+	 *
+	 * @param code
+	 *            the code
+	 */
+	void gameUpdate(String code);
 
 }

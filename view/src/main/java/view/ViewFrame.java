@@ -27,6 +27,7 @@ class ViewFrame extends JFrame implements KeyListener {
 	private static final long serialVersionUID = -697358409737458175L;
 	private static final int FRAMEHEIGHT = 500;
 	private static final int FRAMEWIDTH = 500;
+	private view.Camera camera;
 
 	/**
 	 * Instantiates a new view frame.
@@ -37,7 +38,10 @@ class ViewFrame extends JFrame implements KeyListener {
 	 *             the headless exception
 	 */
 	public ViewFrame(final IModel model) throws HeadlessException {
+		this.camera = new Camera();
+		System.out.println(this.camera.getWIDTH());
 		this.buildViewFrame(model);
+
 	}
 
 	/**
@@ -133,8 +137,9 @@ class ViewFrame extends JFrame implements KeyListener {
 		this.setResizable(false);
 		this.addKeyListener(this);
 		this.setContentPane(new ViewPanel(this));
-		this.setSize(400 + this.getInsets().left + this.getInsets().right,
-				60 + this.getInsets().top + this.getInsets().bottom);
+
+		this.setSize(this.camera.getWIDTH() + this.getInsets().left + this.getInsets().right,
+				this.camera.getHEIGHT() + this.getInsets().top + this.getInsets().bottom);
 		this.setLocationRelativeTo(null);
 	}
 

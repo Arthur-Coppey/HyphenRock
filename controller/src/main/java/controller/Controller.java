@@ -56,14 +56,6 @@ public final class Controller implements IController {
     @Override
     public void orderPerform(final ControllerOrder controllerOrder) {
         switch (controllerOrder) {
-            case English:
-                break;
-            case Francais:
-                break;
-            case Deutsch:
-                break;
-            case Indonesia:
-                break;
             default:
                 break;
         }
