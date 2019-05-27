@@ -1,10 +1,8 @@
 package model;
 
-import java.sql.SQLException;
 import java.util.Observable;
 
 import contract.IModel;
-import entity.HelloWorld;
 import model.Element.Element;
 
 /**
@@ -16,59 +14,23 @@ public final class Model extends Observable implements IModel {
 
 	/** The helloWorld. */
 	private Element[][] map;
+	private int score;
+	private final MapMaker mapMaker;
 
 	/**
 	 * Instantiates a new model.
 	 */
 	public Model() {
-		this.helloWorld = new HelloWorld();
+
+		this.mapMaker = new MapMaker();
 	}
 
-	/**
-	 * Gets the hello world.
-	 *
-	 * @return the hello world
-	 */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getMessage()
-	 */
-	public HelloWorld getHelloWorld() {
-		return this.helloWorld;
+	public Element[][] getMap(int level) {
+		return this.map;
 	}
 
-	/**
-	 * Sets the hello world.
-	 *
-	 * @param helloWorld
-	 *            the new hello world
-	 */
-	private void setHelloWorld(final HelloWorld helloWorld) {
-		this.helloWorld = helloWorld;
-		this.setChanged();
-		this.notifyObservers();
-	}
-
-	/**
-	 * Load hello world.
-	 *
-	 * @param code
-	 *            the code
-	 */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getMessage(java.lang.String)
-	 */
-	@Override
-	public void loadHelloWorld(final String code) {
-		try {
-			final DAOHelloWorld daoHelloWorld = new DAOHelloWorld(DBConnection.getInstance().getConnection());
-			this.setHelloWorld(daoHelloWorld.find(code));
-		} catch (final SQLException e) {
-			e.printStackTrace();
-		}
+	public void setMap(Element[][] map) {
+		this.map = map;
 	}
 
 	/**
@@ -86,11 +48,18 @@ public final class Model extends Observable implements IModel {
 		return this;
 	}
 
-	public Element[][] getMap() {
-		return map;
+	public int getScore() {
+		return this.score;
 	}
 
-	public void setMap(Element[][] map) {
-		this.map = map;
+	public void setScore(int score) {
+		this.score = score;
 	}
+
+	@Override
+	public void gameUpdate(String code) {
+		// TODO Auto-generated method stub
+
+	}
+
 }
