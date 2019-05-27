@@ -23,4 +23,5 @@ public interface IModel {
 	 *            the code
 	 */
 	void gameUpdate(String code);
+
 }
