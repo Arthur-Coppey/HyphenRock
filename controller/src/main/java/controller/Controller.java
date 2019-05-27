@@ -1,6 +1,6 @@
 package controller;
 
-import contract.ControllerOrder;
+import contract.Direction;
 import contract.IController;
 import contract.IModel;
 import contract.IView;
@@ -10,32 +10,15 @@ import contract.IView;
  */
 public final class Controller implements IController {
     
-    /** The model. */
     private IModel model;
     
-    /** The view. */
     private IView view;
     
-    /**
-     * Instantiates a new controller.
-     *
-     * @param view
-     *              the view
-     * @param model
-     *              the model
-     */
     public Controller(final IView view, final IModel model) {
         this.setView(view);
         this.setModel(model);
     }
     
-    /**
-     * Control.
-     */
-    /*
-     * (non-Javadoc)
-     * @see contract.IController#control()
-     */
     @Override
     public void control() {
         this.view.printMessage(
@@ -43,19 +26,10 @@ public final class Controller implements IController {
         );
     }
     
-    /**
-     * Order perform.
-     *
-     * @param controllerOrder
-     *                        the controller order
-     */
-    /*
-     * (non-Javadoc)
-     * @see contract.IController#orderPerform(contract.ControllerOrder)
-     */
+
     @Override
-    public void orderPerform(final ControllerOrder controllerOrder) {
-        switch (controllerOrder) {
+    public void orderPerform(final Direction direction) {
+        switch (direction) {
             default:
                 break;
         }
