@@ -4,7 +4,6 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.SwingUtilities;
 
-
 import contract.Direction;
 import contract.IController;
 import contract.IModel;
@@ -21,23 +20,26 @@ public final class View implements IView, Runnable {
 
 	protected static Direction keyCodeToControllerOrder(final int keyCode) {
 		switch (keyCode) {
-			case KeyEvent.VK_A:
-				return Direction.UP;
-			case KeyEvent.VK_S:
-				return Direction.DOWN;
-			case KeyEvent.VK_Q:
-				return Direction.LEFT;
-			case KeyEvent.VK_D:
-				return Direction.RIGHT;
-			default:
-				return null;
+		case KeyEvent.VK_Z:
+			return Direction.UP;
+		case KeyEvent.VK_S:
+			return Direction.DOWN;
+		case KeyEvent.VK_Q:
+			return Direction.LEFT;
+		case KeyEvent.VK_D:
+			return Direction.RIGHT;
+		default:
+			return Direction.NULL;
+
 		}
 	}
 
+	@Override
 	public void printMessage(final String message) {
 		this.viewFrame.printMessage(message);
 	}
 
+	@Override
 	public void run() {
 		this.viewFrame.setVisible(true);
 	}
