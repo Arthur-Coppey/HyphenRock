@@ -16,24 +16,23 @@ class ViewFrame extends JFrame implements KeyListener {
 	private IModel model;
 
 	private IController controller;
-	
+
 	private static final long serialVersionUID = -697358409737458175L;
 	private static final int FRAMEHEIGHT = 500;
 	private static final int FRAMEWIDTH = 500;
 	private view.Camera camera;
-	private JFrame frame = new JFrame("HyphenRock");
+	private final JFrame frame = new JFrame("HyphenRock");
 
 	public ViewFrame(final IModel model) throws HeadlessException {
 		this.camera = new Camera();
-		System.out.println(this.camera.getWIDTH());
 		this.buildViewFrame(model);
 
 	}
 
-	public ViewFrame(final IModel model, final GraphicsConfiguration gc) {
-		super(gc);
-		this.buildViewFrame(model);
-	}
+	/*
+	 * public ViewFrame(final IModel model, final GraphicsConfiguration gc) {
+	 * super(gc); this.buildViewFrame(model); }
+	 */
 
 	public ViewFrame(final IModel model, final String title) throws HeadlessException {
 		super(title);

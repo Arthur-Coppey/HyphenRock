@@ -2,8 +2,6 @@ package view;
 
 import java.awt.event.KeyEvent;
 
-import javax.swing.SwingUtilities;
-
 import contract.Direction;
 import contract.IController;
 import contract.IModel;
@@ -15,7 +13,8 @@ public final class View implements IView, Runnable {
 
 	public View(final IModel model) {
 		this.viewFrame = new ViewFrame(model);
-		SwingUtilities.invokeLater(this);
+		// TODO
+		// SwingUtilities.invokeLater(this);
 	}
 
 	protected static Direction keyCodeToControllerOrder(final int keyCode) {
