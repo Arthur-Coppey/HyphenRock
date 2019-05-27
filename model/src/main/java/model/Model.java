@@ -5,6 +5,7 @@ import java.util.Observable;
 
 import contract.IModel;
 import entity.HelloWorld;
+import model.Element.Element;
 
 /**
  * The Class Model.
@@ -14,7 +15,7 @@ import entity.HelloWorld;
 public final class Model extends Observable implements IModel {
 
 	/** The helloWorld. */
-	private HelloWorld helloWorld;
+	private Element[][] map;
 
 	/**
 	 * Instantiates a new model.
@@ -24,10 +25,10 @@ public final class Model extends Observable implements IModel {
 	}
 
 	/**
-     * Gets the hello world.
-     *
-     * @return the hello world
-     */
+	 * Gets the hello world.
+	 *
+	 * @return the hello world
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -38,11 +39,11 @@ public final class Model extends Observable implements IModel {
 	}
 
 	/**
-     * Sets the hello world.
-     *
-     * @param helloWorld
-     *            the new hello world
-     */
+	 * Sets the hello world.
+	 *
+	 * @param helloWorld
+	 *            the new hello world
+	 */
 	private void setHelloWorld(final HelloWorld helloWorld) {
 		this.helloWorld = helloWorld;
 		this.setChanged();
@@ -50,16 +51,17 @@ public final class Model extends Observable implements IModel {
 	}
 
 	/**
-     * Load hello world.
-     *
-     * @param code
-     *            the code
-     */
+	 * Load hello world.
+	 *
+	 * @param code
+	 *            the code
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
 	 * @see contract.IModel#getMessage(java.lang.String)
 	 */
+	@Override
 	public void loadHelloWorld(final String code) {
 		try {
 			final DAOHelloWorld daoHelloWorld = new DAOHelloWorld(DBConnection.getInstance().getConnection());
@@ -70,16 +72,25 @@ public final class Model extends Observable implements IModel {
 	}
 
 	/**
-     * Gets the observable.
-     *
-     * @return the observable
-     */
+	 * Gets the observable.
+	 *
+	 * @return the observable
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
 	 * @see contract.IModel#getObservable()
 	 */
+	@Override
 	public Observable getObservable() {
 		return this;
+	}
+
+	public Element[][] getMap() {
+		return map;
+	}
+
+	public void setMap(Element[][] map) {
+		this.map = map;
 	}
 }
