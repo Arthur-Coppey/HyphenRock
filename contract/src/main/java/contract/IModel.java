@@ -16,11 +16,4 @@ public interface IModel {
      */
     Observable getObservable();
 
-    /**
-     * Load the message.
-     *
-     * @param code
-     *             the code
-     */
-    void loadHelloWorld(String code);
 }
