@@ -1,4 +1,4 @@
-package model.Element;
+package model.element;
 
 import java.io.File;
 import java.io.IOException;

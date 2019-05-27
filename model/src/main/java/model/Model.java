@@ -3,8 +3,7 @@ package model;
 import java.util.Observable;
 
 import contract.IModel;
-
-import model.Element.Element;
+import model.element.Element;
 
 
 /**

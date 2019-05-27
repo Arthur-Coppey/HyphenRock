@@ -1,6 +1,6 @@
 package model;
 
-import model.Element.Element;
+import model.element.Element;
 
 public class MapMaker {
 	private Element[][] map;
