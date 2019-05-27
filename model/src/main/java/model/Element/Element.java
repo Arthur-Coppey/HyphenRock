@@ -5,8 +5,8 @@ import java.awt.image.BufferedImage;
 public abstract class Element {
 	private BufferedImage sprite;
 
-	Element() {
-
+	Element(BufferedImage Sprite) {
+		this.sprite = Sprite;
 	}
 
 	void update() {
