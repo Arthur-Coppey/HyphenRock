@@ -38,3 +38,4 @@ class ViewPanel extends JPanel implements Observer {
         this.viewFrame = viewFrame;
     }
 }
+
