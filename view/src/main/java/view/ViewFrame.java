@@ -28,6 +28,7 @@ class ViewFrame extends JFrame implements KeyListener {
 	private static final int FRAMEHEIGHT = 500;
 	private static final int FRAMEWIDTH = 500;
 	private view.Camera camera;
+	private JFrame frame = new JFrame("HyphenRock");
 
 	/**
 	 * Instantiates a new view frame.
@@ -133,14 +134,14 @@ class ViewFrame extends JFrame implements KeyListener {
 	 */
 	private void buildViewFrame(final IModel model) {
 		this.setModel(model);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setResizable(false);
-		this.addKeyListener(this);
-		this.setContentPane(new ViewPanel(this));
-
-		this.setSize(this.camera.getWIDTH() + this.getInsets().left + this.getInsets().right,
+		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.frame.setResizable(false);
+		this.frame.addKeyListener(this);
+		this.frame.setContentPane(new ViewPanel(this));
+		this.frame.setSize(this.camera.getWIDTH() + this.getInsets().left + this.getInsets().right,
 				this.camera.getHEIGHT() + this.getInsets().top + this.getInsets().bottom);
-		this.setLocationRelativeTo(null);
+		this.frame.setLocationRelativeTo(null);
+		this.frame.setVisible(true);
 	}
 
 	/**
