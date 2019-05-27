@@ -6,10 +6,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Player extends Mobile {
-	private static String spritePath = "player.jpg";
+    private static String spritePath = "player.jpg";
 
-	Player() throws IOException {
-		super(ImageIO.read(new File(Player.spritePath)));
-
-	}
+    Player() throws IOException {
+        super(ImageIO.read(new File(Player.spritePath)));
+    }
 }
