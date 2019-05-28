@@ -1,10 +1,7 @@
 package view;
 
 public class Camera {
-	/**
-	 *
-	 */
-
+	
 	private static int WIDTH = 20;
 	private static int HEIGHT = 20;
 	private int x = 0;
