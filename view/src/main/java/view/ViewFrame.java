@@ -1,49 +1,71 @@
+
 package view;
 
-import java.awt.GraphicsConfiguration;
+
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
+import java.io.IOException;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import contract.IController;
 import contract.IModel;
 
-class ViewFrame extends JFrame implements KeyListener {
+class ViewFrame extends JFrame  implements KeyListener {
 
 	private IModel model;
-
+	private ImageIcon icon = new ImageIcon("");
+	private JLabel image = new JLabel(icon);
+	
 	private IController controller;
 	
 	private static final long serialVersionUID = -697358409737458175L;
-	private static final int FRAMEHEIGHT = 500;
-	private static final int FRAMEWIDTH = 500;
-	private view.Camera camera;
+	//private static final int FRAMEHEIGHT = 500;
+	//private static final int FRAMEWIDTH = 500;
+	private Camera camera;
 	private JFrame frame = new JFrame("HyphenRock");
-
-	public ViewFrame(final IModel model) throws HeadlessException {
+	
+	//private final File groundImageFile = new File("C:\\ground.png");
+	//private final File wallImageFile = new File("C:\\wall.png");
+	private int cellWidth = 32;
+	private int cellHeight = 32;
+	//private final BufferedImage img;
+	//private final BufferedImage groundImage;
+	//private final BufferedImage wallImage;
+	//private final Graphics g;
+	
+	public ViewFrame(final IModel model) throws HeadlessException, IOException {
 		this.camera = new Camera();
-		System.out.println(this.camera.getWIDTH());
-		this.buildViewFrame(model);
+		//this.img = new BufferedImage(this.camera.getWIDTH() * cellWidth, this.camera.getHEIGHT() * cellHeight, BufferedImage.TYPE_INT_ARGB);
+		//this.g= img.getGraphics();
+//
+		//this.groundImage = ImageIO.read(groundImageFile);
+		//this.wallImage = ImageIO.read(wallImageFile);
+		//this.backgroundMapMaking(this.groundImage, this.wallImage);
+		
 
 	}
 
-	public ViewFrame(final IModel model, final GraphicsConfiguration gc) {
-		super(gc);
-		this.buildViewFrame(model);
-	}
-
-	public ViewFrame(final IModel model, final String title) throws HeadlessException {
-		super(title);
-		this.buildViewFrame(model);
-	}
-
-	public ViewFrame(final IModel model, final String title, final GraphicsConfiguration gc) {
-		super(title, gc);
-		this.buildViewFrame(model);
-	}
+//	public ViewFrame(final IModel model, final GraphicsConfiguration gc) {
+//		super(gc);
+//		this.buildViewFrame(model);
+//		groundImage = ImageIO.read(groundImageFile);
+//	}
+//
+//	public ViewFrame(final IModel model, final String title) throws HeadlessException {
+//		super(title);
+//		this.buildViewFrame(model);
+//		groundImage = ImageIO.read(groundImageFile);
+//	}
+//
+//	public ViewFrame(final IModel model, final String title, final GraphicsConfiguration gc) {
+//		super(title, gc);
+//		this.buildViewFrame(model);
+//		groundImage = ImageIO.read(groundImageFile);
+//	}
 
 	private IController getController() {
 		return this.controller;
@@ -61,16 +83,18 @@ class ViewFrame extends JFrame implements KeyListener {
 		this.model = model;
 	}
 
-	private void buildViewFrame(final IModel model) {
+	private void buildViewFrame(final IModel model) throws IOException {
 		this.setModel(model);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.setResizable(false);
 		this.frame.addKeyListener(this);
+		this.frame.setSize(this.camera.getWIDTH()*cellWidth + this.getInsets().left + this.getInsets().right,
+		this.camera.getHEIGHT()*cellHeight + this.getInsets().top + this.getInsets().bottom);
 		this.frame.setContentPane(new ViewPanel(this));
-		this.frame.setSize(this.camera.getWIDTH() + this.getInsets().left + this.getInsets().right,
-				this.camera.getHEIGHT() + this.getInsets().top + this.getInsets().bottom);
 		this.frame.setLocationRelativeTo(null);
+		this.frame.add(image);
 		this.frame.setVisible(true);
+		
 	}
 
 	public void printMessage(final String message) {
@@ -85,7 +109,7 @@ class ViewFrame extends JFrame implements KeyListener {
 	@Override
 	public void keyPressed(final KeyEvent e) {
 		this.getController().orderPerform(View.keyCodeToControllerOrder(e.getKeyCode()));
-		System.out.println(View.keyCodeToControllerOrder(e.getKeyCode()));
+		View.keyCodeToControllerOrder(e.getKeyCode());
 	}
 
 	@Override

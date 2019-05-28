@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
 /**
  * The Class DAOElement.
  *
@@ -14,20 +15,13 @@ import java.util.ArrayList;
  */
 public class DAOElement<Element> {
 
-    /** The connection. */
+
     private final Connection connection;
 
-    /**
-     * Instantiates a new DAO element.
-     *
-     * @param connection
-     *                   the connection
-     * @throws SQLException
-     *                      the SQL exception
-     */
     public DAOElement(final Connection connection) throws SQLException {
         this.connection = connection;
     }
+
 
     /**
      * Creates the.
@@ -89,8 +83,13 @@ public class DAOElement<Element> {
      *
      * @return the connection
      */
+
     protected Connection getConnection() {
         return this.connection;
+    }
+
+    public boolean update(final E element) {
+        return false;
     }
 
 }

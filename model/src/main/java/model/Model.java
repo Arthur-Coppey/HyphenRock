@@ -2,66 +2,49 @@ package model;
 
 import java.util.Observable;
 
+import contract.Direction;
 import contract.IModel;
 import model.element.Element;
 
-
-/**
- * The Class Model.
- *
- * @author Jean-Aymeric Diet
- */
 public final class Model extends Observable implements IModel {
 
+    /** The helloWorld. */
+    private Element[][]    map;
+    private int            score;
+    private final MapMaker mapMaker;
 
-	/** The helloWorld. */
-	private Element[][] map;
-	private int score;
-	private final MapMaker mapMaker;
+    public Model() {
 
-	/**
-	 * Instantiates a new model.
-	 */
-	public Model() {
+        this.mapMaker = new MapMaker();
+    }
 
-		this.mapMaker = new MapMaker();
-	}
+    @Override
+    public void gameUpdate(Direction direction) {
+        this.map.player.playerUpdate(direction);
+        for (final Element E : this.map.getElements()) {
+            E.update(this.map);
+        }
+    }
 
-	public Element[][] getMap(int level) {
-		return this.map;
-	}
+    public Element[][] getMap(int level) {
+        return this.map;
+    }
 
-	public void setMap(Element[][] map) {
-		this.map = map;
-	}
+    @Override
+    public Observable getObservable() {
+        return this;
+    }
 
-	/**
-	 * Gets the observable.
-	 *
-	 * @return the observable
-	 */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getObservable()
-	 */
-	@Override
-	public Observable getObservable() {
-		return this;
-	}
+    public int getScore() {
+        return this.score;
+    }
 
-	public int getScore() {
-		return this.score;
-	}
+    public void setMap(Element[][] map) {
+        this.map = map;
+    }
 
-	public void setScore(int score) {
-		this.score = score;
-	}
-
-	@Override
-	public void gameUpdate(String code) {
-		// TODO Auto-generated method stub
-
-	}
+    public void setScore(int score) {
+        this.score = score;
+    }
 
 }
