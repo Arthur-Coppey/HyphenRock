@@ -13,10 +13,6 @@ public abstract class Mobile extends Element {
         // TODO Auto-generated constructor stub
     }
 
-    public void fall(boolean i) {
-        this.falling = i;
-    }
-
     public int getX() {
         return this.x;
     }
@@ -27,6 +23,10 @@ public abstract class Mobile extends Element {
 
     public boolean isFalling() {
         return this.falling;
+    }
+
+    public void setFalling(boolean i) {
+        this.falling = i;
     }
 
     public void setX(int x) {
