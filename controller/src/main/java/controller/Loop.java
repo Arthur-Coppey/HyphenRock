@@ -7,10 +7,14 @@ public class Loop extends java.util.TimerTask {
 	private Direction directionOrder = null;
 	private IModel model;
 
+	public Loop(IModel Model) {
+		this.setModel(Model);
+	}
+
 	@Override
 	public void run() {
-		this.model.gameUpdate(null);
-		this.directionOrder = null;
+		this.model.gameUpdate(this.directionOrder);
+		this.setDirectionOrder(null);
 		System.out.println("aze");
 
 	}

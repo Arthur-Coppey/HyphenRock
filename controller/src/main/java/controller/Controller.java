@@ -25,8 +25,7 @@ public final class Controller implements IController {
 	public Controller(final IView view, final IModel model) {
 		this.setView(view);
 		this.setModel(model);
-		this.setLoop(new Loop());
-		this.getLoop().setModel(model);
+		this.setLoop(new Loop(model));
 	}
 
 	@Override
