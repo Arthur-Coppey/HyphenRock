@@ -10,11 +10,6 @@ public abstract class Mobile extends Element {
 
     public Mobile(BufferedImage Sprite) throws IOException {
         super(Sprite);
-        // TODO Auto-generated constructor stub
-    }
-
-    public void fall(boolean i) {
-        this.falling = i;
     }
 
     public int getX() {
@@ -27,6 +22,15 @@ public abstract class Mobile extends Element {
 
     public boolean isFalling() {
         return this.falling;
+    }
+
+    public void kill() {
+        map.setElementToPosition(null, this.x, this.y);
+        map.getElements.remove(this);
+    }
+
+    public void setFalling(boolean i) {
+        this.falling = i;
     }
 
     public void setX(int x) {

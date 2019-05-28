@@ -12,11 +12,7 @@ public final class Model extends Observable implements IModel {
     private Element[][]    map;
     private int            score;
     private final MapMaker mapMaker;
-    private final String[] elementTab = { "player", "Mob", "Rock", "Diamond" };
 
-    /**
-     * Instantiates a new model.
-     */
     public Model() {
 
         this.mapMaker = new MapMaker();
@@ -24,23 +20,16 @@ public final class Model extends Observable implements IModel {
 
     @Override
     public void gameUpdate(Direction direction) {
-
+        this.map.player.playerUpdate(direction);
+        for (final Element E : this.map.getElements()) {
+            E.update(this.map);
+        }
     }
 
     public Element[][] getMap(int level) {
         return this.map;
     }
 
-    /**
-     * Gets the observable.
-     *
-     * @return the observable
-     */
-    /*
-     * (non-Javadoc)
-     *
-     * @see contract.IModel#getObservable()
-     */
     @Override
     public Observable getObservable() {
         return this;
