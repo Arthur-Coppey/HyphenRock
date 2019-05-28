@@ -21,7 +21,9 @@ class ViewFrame extends JFrame implements KeyListener {
 	private static final int FRAMEHEIGHT = 500;
 	private static final int FRAMEWIDTH = 500;
 	private view.Camera camera;
+
 	private final JFrame frame = new JFrame("HyphenRock");
+
 
 	public ViewFrame(final IModel model) throws HeadlessException {
 		this.camera = new Camera();
