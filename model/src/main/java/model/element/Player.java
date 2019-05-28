@@ -14,7 +14,7 @@ public class Player extends Mobile {
         super(ImageIO.read(new File(Player.spritePath)));
     }
 
-    public void update(Direction direction) {
+    public void playerUpdate(Direction direction) {
         switch (direction) {
         case UP:
             super.setY(super.getY() - 1);
