@@ -17,6 +17,7 @@ public class Rock extends Mobile {
         if (map.getElementByPosition(this.getX(), this.getY() - 1) == null) {
             this.setY(this.getY() - 1);
         } else if (map.getElementByPosition(this.getX(), this.getY() - 1) == (Rock || Diamond)) {
+
             if (map.getElemementByPosition(this.getX() - 1, this.getY()) == null) {
                 if (map.getElementByPosition(this.getX() - 1, this.getY() - 1) == null) {
                     this.setX(this.getX() - 1);
@@ -26,6 +27,7 @@ public class Rock extends Mobile {
                 if (map.getElementByPosition(this.getX() + 1, this.getY() - 1) == null) {
                     this.setX(this.getX() + 1);
                 }
-        }
+            }
+
     }
 }
