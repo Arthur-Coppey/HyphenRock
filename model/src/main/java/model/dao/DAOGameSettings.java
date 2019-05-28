@@ -8,6 +8,8 @@ package model.dao;
  *
  */
 public class DAOGameSettings {
+    private final static String PROPERTIES_FILE_NAME = "game.properties";
+    private int                 mapId;
 
     /**
      *
