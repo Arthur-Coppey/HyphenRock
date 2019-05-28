@@ -2,6 +2,7 @@ package model.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * The Class DAOElement.
@@ -12,10 +13,10 @@ import java.sql.SQLException;
  *        the element type
  */
 public class DAOElement<Element> {
-    
+
     /** The connection. */
     private final Connection connection;
-    
+
     /**
      * Instantiates a new DAO element.
      *
@@ -27,7 +28,7 @@ public class DAOElement<Element> {
     public DAOElement(final Connection connection) throws SQLException {
         this.connection = connection;
     }
-    
+
     /**
      * Creates the.
      *
@@ -38,7 +39,7 @@ public class DAOElement<Element> {
     public boolean create(final Element element) {
         return false;
     }
-    
+
     /**
      * Delete.
      *
@@ -49,18 +50,7 @@ public class DAOElement<Element> {
     public boolean delete(final Element element) {
         return false;
     }
-    
-    /**
-     * Find.
-     *
-     * @param id
-     *           the id
-     * @return the e
-     */
-    public Element find(final int id) {
-        return null;
-    }
-    
+
     /**
      * Find.
      *
@@ -71,7 +61,18 @@ public class DAOElement<Element> {
     public Element find(final String code) {
         return null;
     }
-    
+
+    /**
+     * Find.
+     *
+     * @param id
+     *           the id
+     * @return the e
+     */
+    public ArrayList<Element> getElementsByMapId(final int id) {
+        return null;
+    }
+
     /**
      * Update.
      *
@@ -82,7 +83,7 @@ public class DAOElement<Element> {
     public boolean update(final Element element) {
         return false;
     }
-    
+
     /**
      * Gets the connection.
      *
@@ -91,5 +92,5 @@ public class DAOElement<Element> {
     protected Connection getConnection() {
         return this.connection;
     }
-    
+
 }
