@@ -7,9 +7,6 @@ import contract.IController;
 import contract.IModel;
 import contract.IView;
 
-/**
- * The Class Controller.
- */
 public final class Controller implements IController {
 
 	private final int FPS = 1;
