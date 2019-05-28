@@ -16,12 +16,12 @@ public final class View implements IView, Runnable {
 
 	public View(final IModel model) {
 		this.viewFrame = new ViewFrame(model);
-		SwingUtilities.invokeLater(this);
+		//SwingUtilities.invokeLater(this);
 	}
 
 	protected static Direction keyCodeToControllerOrder(final int keyCode) {
 		switch (keyCode) {
-			case KeyEvent.VK_A:
+			case KeyEvent.VK_Z:
 				return Direction.UP;
 			case KeyEvent.VK_S:
 				return Direction.DOWN;

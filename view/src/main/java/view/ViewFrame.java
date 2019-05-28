@@ -5,7 +5,9 @@ import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import contract.IController;
@@ -14,6 +16,8 @@ import contract.IModel;
 class ViewFrame extends JFrame implements KeyListener {
 
 	private IModel model;
+	private ImageIcon icon = new ImageIcon("");
+	private JLabel image = new JLabel(icon);
 
 	private IController controller;
 	
@@ -25,7 +29,7 @@ class ViewFrame extends JFrame implements KeyListener {
 
 	public ViewFrame(final IModel model) throws HeadlessException {
 		this.camera = new Camera();
-		System.out.println(this.camera.getWIDTH());
+		this.camera.getWIDTH();
 		this.buildViewFrame(model);
 
 	}
@@ -70,7 +74,9 @@ class ViewFrame extends JFrame implements KeyListener {
 		this.frame.setSize(this.camera.getWIDTH() + this.getInsets().left + this.getInsets().right,
 				this.camera.getHEIGHT() + this.getInsets().top + this.getInsets().bottom);
 		this.frame.setLocationRelativeTo(null);
+		this.frame.add(image);
 		this.frame.setVisible(true);
+		
 	}
 
 	public void printMessage(final String message) {
@@ -85,7 +91,7 @@ class ViewFrame extends JFrame implements KeyListener {
 	@Override
 	public void keyPressed(final KeyEvent e) {
 		this.getController().orderPerform(View.keyCodeToControllerOrder(e.getKeyCode()));
-		System.out.println(View.keyCodeToControllerOrder(e.getKeyCode()));
+		View.keyCodeToControllerOrder(e.getKeyCode());
 	}
 
 	@Override
