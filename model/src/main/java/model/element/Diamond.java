@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import contract.Direction;
+
 public class Diamond extends Mobile {
     private static String        spritePath = "diamond.jpg";
     private final static boolean unstable   = true;
@@ -36,6 +38,11 @@ public class Diamond extends Mobile {
         } else {
             this.setFalling(false);
         }
+    }
+
+    @Override
+    public void use(Direction direction) {
+
     }
 }
 // oui

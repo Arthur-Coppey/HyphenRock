@@ -3,6 +3,8 @@ package model.element;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import contract.Direction;
+
 public abstract class Element {
     private final static boolean unstable = false;
     private BufferedImage        sprite;
@@ -24,6 +26,10 @@ public abstract class Element {
     }
 
     void update() {
+
+    }
+
+    public void use(Direction direction) {
 
     }
 
