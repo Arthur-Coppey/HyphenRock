@@ -2,26 +2,8 @@ package contract;
 
 import java.util.Observable;
 
-/**
- * The Interface IModel.
- *
- * @author Jean-Aymeric Diet
- */
 public interface IModel {
+    void gameUpdate(Direction direction);
 
-	/**
-	 * Gets the observable.
-	 *
-	 * @return the observable
-	 */
-	Observable getObservable();
-
-	/**
-	 * Load the message.
-	 *
-	 * @param code
-	 *            the code
-	 */
-	void gameUpdate(String code);
-
+    Observable getObservable();
 }
