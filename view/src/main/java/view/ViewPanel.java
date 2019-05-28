@@ -70,4 +70,5 @@ class ViewPanel extends JPanel implements Observer {
 		}
 		graphics.drawImage(wallImage, 5*cellWidth/2, 5*cellHeight/2, this);
 	}
-} //
+} 
+

@@ -3,7 +3,8 @@ package model;
 import java.util.Observable;
 
 import contract.IModel;
-import model.Element.Element;
+import model.element.Element;
+
 
 /**
  * The Class Model.
@@ -11,6 +12,7 @@ import model.Element.Element;
  * @author Jean-Aymeric Diet
  */
 public final class Model extends Observable implements IModel {
+
 
 	/** The helloWorld. */
 	private Element[][] map;
