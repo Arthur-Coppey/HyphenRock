@@ -11,11 +11,11 @@ import java.sql.SQLException;
  * @param <E>
  *        the element type
  */
-public class DAOElement<E> {
-
+public class DAOElement<Element> {
+    
     /** The connection. */
     private final Connection connection;
-
+    
     /**
      * Instantiates a new DAO element.
      *
@@ -27,7 +27,7 @@ public class DAOElement<E> {
     public DAOElement(final Connection connection) throws SQLException {
         this.connection = connection;
     }
-
+    
     /**
      * Creates the.
      *
@@ -35,10 +35,10 @@ public class DAOElement<E> {
      *                the element
      * @return true, if successful
      */
-    public boolean create(final E element) {
+    public boolean create(final Element element) {
         return false;
     }
-
+    
     /**
      * Delete.
      *
@@ -46,10 +46,10 @@ public class DAOElement<E> {
      *                the entity
      * @return true, if successful
      */
-    public boolean delete(final E element) {
+    public boolean delete(final Element element) {
         return false;
     }
-
+    
     /**
      * Find.
      *
@@ -57,10 +57,10 @@ public class DAOElement<E> {
      *           the id
      * @return the e
      */
-    public E find(final int id) {
+    public Element find(final int id) {
         return null;
     }
-
+    
     /**
      * Find.
      *
@@ -68,21 +68,21 @@ public class DAOElement<E> {
      *             the code
      * @return the e
      */
-    public E find(final String code) {
+    public Element find(final String code) {
         return null;
     }
-
+    
     /**
      * Update.
      *
      * @param element
-     *               the entity
+     *                the entity
      * @return true, if successful
      */
-    public boolean update(final E element) {
+    public boolean update(final Element element) {
         return false;
     }
-
+    
     /**
      * Gets the connection.
      *
@@ -91,5 +91,5 @@ public class DAOElement<E> {
     protected Connection getConnection() {
         return this.connection;
     }
-
+    
 }
