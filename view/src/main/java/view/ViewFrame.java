@@ -24,7 +24,6 @@ class ViewFrame extends JFrame implements KeyListener {
 
 	private final JFrame frame = new JFrame("HyphenRock");
 
-
 	public ViewFrame(final IModel model) throws HeadlessException {
 		this.camera = new Camera();
 		this.buildViewFrame(model);
@@ -86,7 +85,7 @@ class ViewFrame extends JFrame implements KeyListener {
 	@Override
 	public void keyPressed(final KeyEvent e) {
 		this.getController().orderPerform(View.keyCodeToControllerOrder(e.getKeyCode()));
-		System.out.println(View.keyCodeToControllerOrder(e.getKeyCode()));
+		// System.out.println(View.keyCodeToControllerOrder(e.getKeyCode()));
 	}
 
 	@Override
