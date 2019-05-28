@@ -8,14 +8,16 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 
 import model.Map;
+import model.element.Element;
 
 /**
  * @author Arthur Coppey
  *
  */
 public class DAOMap {
-    private final Connection connection;
-
+    private final Connection    connection;
+    private DAOElement<Element> daoElement;
+    
     /**
      *
      */
@@ -36,8 +38,9 @@ public class DAOMap {
             final int    width  = resultSet.getInt("width");
             final int    height = resultSet.getInt("height");
             final String name   = resultSet.getString("name");
-            final Map    map    = new Map(height, height);
+            final Map    map    = new Map(width, height);
             map.setName(name);
+            
         }
         catch (final Exception exception) {
             exception.printStackTrace();
