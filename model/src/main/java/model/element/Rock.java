@@ -7,12 +7,15 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 public class Rock extends Mobile {
+
     private static String        spritePath = "rock.jpg";
     private final static boolean unstable   = true;
 
-    Rock() throws IOException {
-        super(ImageIO.read(new File(Rock.spritePath)));
-    }
+
+	Rock() throws IOException {
+		super(ImageIO.read(new File(Rock.spritePath)));
+	}
+
 
     @Override
     public void update(Map map) {
