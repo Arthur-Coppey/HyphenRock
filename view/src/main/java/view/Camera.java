@@ -5,8 +5,8 @@ public class Camera {
 	 *
 	 */
 
-	private int WIDTH = 500;
-	private int HEIGHT = 500;
+	private static int WIDTH = 20;
+	private static int HEIGHT = 20;
 	private int x = 0;
 	private int y = 0;
 
@@ -18,8 +18,8 @@ public class Camera {
 		return this.WIDTH;
 	}
 
-	public void setWIDTH(int wIDTH) {
-		this.WIDTH = wIDTH;
+	public void setWIDTH(int WIDTH) {
+		this.WIDTH = WIDTH;
 	}
 
 	public int getHEIGHT() {

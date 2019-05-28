@@ -1,8 +1,9 @@
 package view;
 
+import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 
-import javax.swing.SwingUtilities;
 
 
 import contract.Direction;
@@ -13,8 +14,8 @@ import contract.IView;
 public final class View implements IView, Runnable {
 
 	private final ViewFrame viewFrame;
-
-	public View(final IModel model) {
+	
+	public View(final IModel model) throws HeadlessException, IOException {
 		this.viewFrame = new ViewFrame(model);
 		//SwingUtilities.invokeLater(this);
 	}
