@@ -2,8 +2,19 @@ package model.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-public class DAOElement<E> {
+
+/**
+ * The Class DAOElement.
+ *
+ * @author Jean-Aymeric Diet
+ *
+ * @param <E>
+ *        the element type
+ */
+public class DAOElement<Element> {
+
 
     private final Connection connection;
 
@@ -11,21 +22,67 @@ public class DAOElement<E> {
         this.connection = connection;
     }
 
-    public boolean create(final E element) {
+
+    /**
+     * Creates the.
+     *
+     * @param element
+     *                the element
+     * @return true, if successful
+     */
+    public boolean create(final Element element) {
         return false;
     }
 
-    public boolean delete(final E element) {
+    /**
+     * Delete.
+     *
+     * @param element
+     *                the entity
+     * @return true, if successful
+     */
+    public boolean delete(final Element element) {
         return false;
     }
 
-    public E find(final int id) {
+    /**
+     * Find.
+     *
+     * @param code
+     *             the code
+     * @return the e
+     */
+    public Element find(final String code) {
         return null;
     }
 
-    public E find(final String code) {
+    /**
+     * Find.
+     *
+     * @param id
+     *           the id
+     * @return the e
+     */
+    public ArrayList<Element> getElementsByMapId(final int id) {
         return null;
     }
+
+    /**
+     * Update.
+     *
+     * @param element
+     *                the entity
+     * @return true, if successful
+     */
+    public boolean update(final Element element) {
+        return false;
+    }
+
+    /**
+     * Gets the connection.
+     *
+     * @return the connection
+     */
 
     protected Connection getConnection() {
         return this.connection;
