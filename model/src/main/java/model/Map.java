@@ -7,43 +7,65 @@ import model.element.Element;
 
 public class Map {
     private ArrayList<Element>       elements;
+    private final int                height;
     private final Element[][]        mapping;
     private String                   name;
     private HashMap<String, Integer> score;
-    private final int                width, height;
-    
-    Map(final String name, final int width, final int height) {
-        this.name    = name;
+    private final int                width;
+
+    public Map(final int width, final int height) {
         this.width   = width;
         this.height  = height;
         this.mapping = new Element[width][height];
     }
-
-    Element getElementByPosition(final int x, final int y) throws Exception {
+    
+    public Element getElementByPosition(final int x, final int y) throws Exception {
         return this.mapping[x][y];
     }
-
-    void placeElement(final Element element) {
-        final int x = element.getX();
-        final int y = element.getY();
-        if (this.getElementByPosition(x, y) == null) {
-            this.setElementToPosition(element, x, y);
-        }
+    
+    /**
+     * @return the elements
+     */
+    public ArrayList<Element> getElements() {
+        return this.elements;
     }
     
-    void setElements(final ArrayList<Element> elements) {
+    public int getHeight() {
+        return this.height;
+    }
+    
+    /**
+     * @return the mapping
+     */
+    public Element[][] getMapping() {
+        return this.mapping;
+    }
+    
+    public String getName() {
+        return this.name;
+    }
+
+    public HashMap<String, Integer> getScore() {
+        return this.score;
+    }
+
+    public int getWidth() {
+        return this.width;
+    }
+    
+    public void setElements(final ArrayList<Element> elements) {
         this.elements = elements;
     }
-    
-    void setElementToPosition(final Element element, final int x, final int y) throws Exception {
+
+    public void setElementToPosition(final Element element, final int x, final int y) throws Exception {
         this.mapping[x][y] = element;
     }
-    
-    void setName(final String name) {
+
+    public void setName(final String name) {
         this.name = name;
     }
 
-    void setScore(final HashMap<String, Integer> score) {
+    public void setScore(final HashMap<String, Integer> score) {
         this.score = score;
     }
 }
