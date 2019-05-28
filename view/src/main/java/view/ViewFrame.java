@@ -40,7 +40,7 @@ class ViewFrame extends JFrame  implements KeyListener {
 		this.camera = new Camera();
 		//this.img = new BufferedImage(this.camera.getWIDTH() * cellWidth, this.camera.getHEIGHT() * cellHeight, BufferedImage.TYPE_INT_ARGB);
 		//this.g= img.getGraphics();
-
+//
 		//this.groundImage = ImageIO.read(groundImageFile);
 		//this.wallImage = ImageIO.read(wallImageFile);
 		//this.backgroundMapMaking(this.groundImage, this.wallImage);
