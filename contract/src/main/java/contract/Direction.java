@@ -2,14 +2,14 @@ package contract;
 
 public enum Direction {
 
-	UP,
+    UP,
 
-	DOWN,
+    RIGHT,
 
-	RIGHT,
-	
-	LEFT,
-	
-	NULL
+    DOWN,
+
+    LEFT,
+
+    NULL
 }
 //

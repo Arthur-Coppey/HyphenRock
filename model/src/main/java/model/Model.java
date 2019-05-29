@@ -9,13 +9,13 @@ import model.element.Element;
 public final class Model extends Observable implements IModel {
 
     /** The helloWorld. */
-    private Element[][]    map;
-    private int            score;
-    private final MapMaker mapMaker;
+    private Element[][] map;
+    private int         score;
+    private final Map   mapMaker;
 
     public Model() {
 
-        this.mapMaker = new MapMaker();
+        this.mapMaker = new Map();
     }
 
     @Override

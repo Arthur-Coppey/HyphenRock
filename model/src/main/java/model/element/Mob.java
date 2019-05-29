@@ -2,9 +2,10 @@ package model.element;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
+
+import model.Map;
 
 public class Mob extends Mobile {
     private static String spritePath = "mob.jpg";
@@ -15,47 +16,74 @@ public class Mob extends Mobile {
         this.setDirection(1);
     }
 
-    private int[] directionCoordinate(int direction) {
-        final int[][] tabDirection = { { -1, 0 }, { 0, -1 }, { 1, 0 }, { 0, 1 } };
-        return tabDirection[direction];
+    @Override
+    public void die(Map map) throws Exception {
+        this.explode(map);
+        map.setElementToPosition(null, this.x, this.y);
+        map.getElements().remove(map.getElementByPosition(this.x, this.y));
     }
 
-    private Element getForward(Map map) {
-        return map.getElementByPosition(this.directionCoordinate(this.direction)[0] + this.getX(),
-                this.directionCoordinate(this.direction)[1] + this.getY());
+    @Override
+    protected void explode(Map map) throws Exception {
+        int x;
+        int y;
+        for (int i = 0; i < 9; i++) {
+            x = ((i % 3) - 2);
+            y = (int) Math.floor(i / 3);
+            map.setElementToPosition(new Diamond(this.getX() + x, this.getY() + y), this.getX() + x, this.getY() + y);
+            map.getElements().remove(map.getElementByPosition(x, y));
+        }
     }
 
-    private Element getLeft(Map map) {
-        return map.getElementByPosition(this.directionCoordinate(this.getRotation(3))[0] + this.getX(),
-                this.directionCoordinate(this.getRotation(3))[1] + this.getY());
+    private Element getForward(Map map) throws Exception {
+        return this.getInDirection(this.IntToDirection(this.direction), map);
     }
 
-    private Element getRight(Map map) {
-        return map.getElementByPosition(this.directionCoordinate(this.getRotation(1))[0] + this.getX(),
-                this.directionCoordinate(this.getRotation(1))[1] + this.getY());
+    private Element getLeft(Map map) throws Exception {
+        return this.getInDirection(this.IntToDirection(this.getRotation(3)), map);
+    }
+
+    private Element getRight(Map map) throws Exception {
+        return this.getInDirection(this.IntToDirection(this.getRotation(1)), map);
     }
 
     private int getRotation(int way) {
         return (this.direction + way) % 4;
     }
 
-    private void moveForward() {
+    @Override
+    public boolean isAlive() {
+        return true;
+    }
+
+    private void moveForward(Map map) throws Exception {
+        int check = 0;
+        if (this.getLeft(map) != null) {
+            check = 3;
+        }
+        if (this.getRight(map) != null) {
+            check = 1;
+        }
         this.setX(this.getX() + this.directionCoordinate(this.direction)[0]);
         this.setY(this.getY() + this.directionCoordinate(this.direction)[1]);
+        if ((this.getLeft(map) == null) && (this.getRight(map) == null)) {
+            this.setDirection(this.getRotation(check));
+        }
     }
 
     public void setDirection(int direction) {
         this.direction = direction;
     }
 
-    public void update(Map map) {
+    public void update(Map map) throws Exception {
         final int x = this.getX();
         final int y = this.getY();
         if (this.getForward(map) != null) {
-            if (this.getLeft(map)) {
-                this.moveForward();
-            }
+            this.moveForward(map);
+        } else if ((this.getForward(map) != null) && (this.getRight(map) != null) && (this.getLeft(map) == null)) {
+            this.setDirection(this.getRotation(3));
+        } else {
+            this.setDirection(this.getRotation(1));
         }
     }
-
 }

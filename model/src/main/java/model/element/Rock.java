@@ -2,41 +2,55 @@ package model.element;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
+
+import contract.Direction;
+import model.Map;
 
 public class Rock extends Mobile {
 
     private static String        spritePath = "rock.jpg";
     private final static boolean unstable   = true;
 
+    Rock() throws IOException {
+        super(ImageIO.read(new File(Rock.spritePath)));
+    }
 
-	Rock() throws IOException {
-		super(ImageIO.read(new File(Rock.spritePath)));
-	}
-
-
-    @Override
-    public void update(Map map) {
+    public void update(Map map) throws Exception {
         final int x = this.getX();
         final int y = this.getY();
-        if (map.getElementByPosition(x, y - 1) == null) {
-            this.setY(y - 1);
+        final Element elementSouth = this.getSouth(map, x, y);
+
+        if (this.isFalling() && elementSouth.isAlive()) {
+            this.setFalling(false);
+            elementSouth.die(map);
+        }
+        if (this.getSouth(map, x, y) == null) {
+            this.setY(y + 1);
             this.setFalling(true);
-        } else if ((map.getElementByPosition(x, y - 1).isUnstable())) {
-            if ((map.getElemementByPosition(x - 1, y) == null) && (map.getElementByPosition(x - 1, y - 1) == null)) {
+        } else if ((this.getSouth(map, x, y).isUnstable())) {
+            if ((this.getWest(map, x, y) == null) && (this.getSouthWest(map, x, y) == null)) {
                 this.setX(x - 1);
                 this.setFalling(true);
-            } else if ((map.getElemementByPosition(x + 1, y) == null)
-                    && (map.getElementByPosition(x + 1, y - 1) == null)) {
+            } else if ((this.getEast(map, x, y) == null) && (this.getSouthEast(map, x, y) == null)) {
                 this.setX(x + 1);
                 this.setFalling(true);
             } else {
                 this.setFalling(false);
             }
+        }
+    }
+
+    @Override
+    public boolean use(Direction direction, Map map) throws Exception {
+        final int directionInInt = this.DirectionToInt(direction);
+        if ((this.getInDirection(direction, map) == null) && (((directionInInt % 2)) == 1)) {
+            this.setX(this.directionCoordinate(directionInInt)[0] + this.getX());
+            this.setY(this.directionCoordinate(directionInInt)[1] + this.getX());
+            return true;
         } else {
-            this.setFalling(false);
+            return false;
         }
     }
 }

@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import contract.Direction;
+import model.Map;
 
 public abstract class Element {
     private final static boolean unstable = false;
@@ -13,8 +14,16 @@ public abstract class Element {
         this.sprite = Sprite;
     }
 
+    public void die(Map map) throws Exception {
+
+    }
+
     public BufferedImage getSprite() {
         return this.sprite;
+    }
+
+    public boolean isAlive() {
+        return false;
     }
 
     public boolean isUnstable() {
@@ -29,8 +38,9 @@ public abstract class Element {
 
     }
 
-    public void use(Direction direction) {
-
+    public boolean use(Direction direction, model.Map map) throws Exception {
+        // TODO Auto-generated method stub
+        return false;
     }
 
 }
