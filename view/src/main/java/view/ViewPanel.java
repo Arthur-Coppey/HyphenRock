@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 class ViewPanel extends JPanel implements Observer {
 
-    
+//    
 
     private static final long serialVersionUID = -998294702363713521L;
     
