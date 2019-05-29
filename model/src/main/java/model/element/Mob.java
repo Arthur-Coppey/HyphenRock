@@ -18,61 +18,74 @@ public class Mob extends Mobile {
         this.setY(y);
     }
 
-    public void setDirection(final int direction) {
-        this.direction = direction;
+    @Override
+    public void die(Map map) throws Exception {
+        this.explode(map);
+        map.setElementToPosition(null, this.x, this.y);
+        map.getElements().remove(map.getElementByPosition(this.x, this.y));
     }
 
     @Override
-    public void update(final Map map) throws Exception {
-        final int x = this.getX();
-        final int y = this.getY();
-        if (this.getForward(map) != null) {
-            if (this.getLeft(map) != null) {
-                this.moveForward();
-            }
+    protected void explode(Map map) throws Exception {
+        int x;
+        int y;
+        for (int i = 0; i < 9; i++) {
+            x = ((i % 3) - 2);
+            y = (int) Math.floor(i / 3);
+            map.setElementToPosition(new Diamond(this.getX() + x, this.getY() + y), this.getX() + x, this.getY() + y);
+            map.getElements().remove(map.getElementByPosition(x, y));
         }
     }
 
-    private int[] directionCoordinate(final int direction) {
-        final int[][] tabDirection = {
-            {
-                -1, 0
-            }, {
-                0, -1
-            }, {
-                1, 0
-            }, {
-                0, 1
-            }
-        };
-        return tabDirection[direction];
+    private Element getForward(Map map) throws Exception {
+        return this.getInDirection(this.IntToDirection(this.direction), map);
     }
 
-    private Element getForward(final Map map) throws Exception {
-        return map.getElementByPosition(
-            this.directionCoordinate(this.direction)[0] + this.getX(), this.directionCoordinate(this.direction)[1] + this.getY()
-        );
+    private Element getLeft(Map map) throws Exception {
+        return this.getInDirection(this.IntToDirection(this.getRotation(3)), map);
     }
 
-    private Element getLeft(final Map map) throws Exception {
-        return map.getElementByPosition(
-            this.directionCoordinate(this.getRotation(3))[0] + this.getX(), this.directionCoordinate(this.getRotation(3))[1] + this.getY()
-        );
-    }
-
-    private Element getRight(final Map map) throws Exception {
-        return map.getElementByPosition(
-            this.directionCoordinate(this.getRotation(1))[0] + this.getX(), this.directionCoordinate(this.getRotation(1))[1] + this.getY()
-        );
+    private Element getRight(Map map) throws Exception {
+        return this.getInDirection(this.IntToDirection(this.getRotation(1)), map);
     }
 
     private int getRotation(final int way) {
         return (this.direction + way) % 4;
     }
 
-    private void moveForward() {
-        this.setX(this.getX() + this.directionCoordinate(this.direction)[0]);
-        this.setY(this.getY() + this.directionCoordinate(this.direction)[1]);
+    @Override
+    public boolean isAlive() {
+        return true;
     }
 
+    private void moveForward(Map map) throws Exception {
+        int check = 0;
+        if (this.getLeft(map) != null) {
+            check = 3;
+        }
+        if (this.getRight(map) != null) {
+            check = 1;
+        }
+        this.setX(this.getX() + this.directionCoordinate(this.direction)[0]);
+        this.setY(this.getY() + this.directionCoordinate(this.direction)[1]);
+        if ((this.getLeft(map) == null) && (this.getRight(map) == null)) {
+            this.setDirection(this.getRotation(check));
+        }
+    }
+
+    public void setDirection(int direction) {
+        this.direction = direction;
+    }
+
+    public void update(Map map) throws Exception {
+        final int x = this.getX();
+        final int y = this.getY();
+        if (this.getForward(map) != null) {
+            this.moveForward(map);
+        } else if ((this.getForward(map) != null) && (this.getRight(map) != null) && (this.getLeft(map) == null)) {
+            this.setDirection(this.getRotation(3));
+        } else {
+            this.setDirection(this.getRotation(1));
+        }
+    }
 }
