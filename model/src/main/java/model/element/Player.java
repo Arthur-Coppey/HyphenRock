@@ -10,27 +10,28 @@ import contract.Direction;
 public class Player extends Mobile {
     private static String spritePath = "player.jpg";
 
-    Player() throws IOException {
+    Player(final int x, final int y) throws IOException {
         super(ImageIO.read(new File(Player.spritePath)));
+        this.setX(x);
+        this.setY(y);
     }
 
-    public void playerUpdate(Direction direction) {
+    public void playerUpdate(final Direction direction) {
         switch (direction) {
-        case UP:
-            super.setY(super.getY() - 1);
-            break;
-        case DOWN:
-            super.setY(super.getY() + 1);
-            break;
-        case RIGHT:
-            if
-            super.setX(super.getX() + 1);
-            break;
-        case LEFT:
-            super.setX(super.getX() - 1);
-            break;
-        default:
-            break;
+            case UP:
+                super.setY(super.getY() - 1);
+                break;
+            case DOWN:
+                super.setY(super.getY() + 1);
+                break;
+            case RIGHT:
+                super.setX(super.getX() + 1);
+                break;
+            case LEFT:
+                super.setX(super.getX() - 1);
+                break;
+            default:
+                break;
         }
 
     }

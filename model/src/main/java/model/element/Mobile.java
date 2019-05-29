@@ -3,12 +3,14 @@ package model.element;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import model.Map;
+
 public abstract class Mobile extends Element {
+    private boolean falling = false;
     private int     x;
     private int     y;
-    private boolean falling = false;
 
-    public Mobile(BufferedImage Sprite) throws IOException {
+    public Mobile(final BufferedImage Sprite) throws IOException {
         super(Sprite);
     }
 
@@ -29,16 +31,25 @@ public abstract class Mobile extends Element {
         map.getElements.remove(this);
     }
 
-    public void setFalling(boolean i) {
+    public void setFalling(final boolean i) {
         this.falling = i;
     }
 
-    public void setX(int x) {
+    public void setX(final int x) {
         this.x = x;
     }
 
-    public void setY(int y) {
+    public void setY(final int y) {
         this.y = y;
+    }
+
+    /**
+     * @param map
+     * @throws Exception
+     */
+    public void update(final Map map) throws Exception {
+        // TODO Auto-generated method stub
+        
     }
 
 }

@@ -2,46 +2,50 @@ package model.element;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
 
 import contract.Direction;
+import model.Map;
 
 public class Diamond extends Mobile {
     private static String        spritePath = "diamond.jpg";
     private final static boolean unstable   = true;
 
-    Diamond() throws IOException {
+    Diamond(final int x, final int y) throws IOException {
         super(ImageIO.read(new File(Diamond.spritePath)));
-
+        this.setX(x);
+        this.setY(y);
     }
 
     @Override
-    public void update(Map map) {
+    public void update(final Map map) throws Exception {
         final int x = this.getX();
         final int y = this.getY();
         if (map.getElementByPosition(x, y - 1) == null) {
             this.setY(y - 1);
             this.setFalling(true);
-        } else if ((map.getElementByPosition(x, y - 1).isUnstable())) {
-            if ((map.getElemementByPosition(x - 1, y) == null) && (map.getElementByPosition(x - 1, y - 1) == null)) {
+        }
+        else if ((map.getElementByPosition(x, y - 1).isUnstable())) {
+            if ((map.getElementByPosition(x - 1, y) == null) && (map.getElementByPosition(x - 1, y - 1) == null)) {
                 this.setX(x - 1);
                 this.setFalling(true);
-            } else if ((map.getElemementByPosition(x + 1, y) == null)
-                    && (map.getElementByPosition(x + 1, y - 1) == null)) {
+            }
+            else if ((map.getElementByPosition(x + 1, y) == null) && (map.getElementByPosition(x + 1, y - 1) == null)) {
                 this.setX(x + 1);
                 this.setFalling(true);
-            } else {
+            }
+            else {
                 this.setFalling(false);
             }
-        } else {
+        }
+        else {
             this.setFalling(false);
         }
     }
 
     @Override
-    public void use(Direction direction) {
+    public void use(final Direction direction) {
 
     }
 }
