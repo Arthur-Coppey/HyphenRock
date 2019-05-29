@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 class ViewPanel extends JPanel implements Observer {
+
     
 
     private static final long serialVersionUID = -998294702363713521L;
@@ -85,4 +86,6 @@ class ViewPanel extends JPanel implements Observer {
 		graphics.drawImage(wallImage, 5*cellWidth/2, 5*cellHeight/2, this);
 	}
 } 
+
+
 

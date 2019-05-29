@@ -6,10 +6,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Wall extends Motionless {
-	private static String spritePath = "wall.jpg";
+    private static String        spritePath = "wall.jpg";
+    private final static boolean unstable   = true;
 
-	Wall() throws IOException {
-		super(ImageIO.read(new File(Wall.spritePath)));
+    Wall() throws IOException {
+        super(ImageIO.read(new File(Wall.spritePath)));
 
-	}
+    }
 }
