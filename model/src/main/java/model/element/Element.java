@@ -34,7 +34,7 @@ public abstract class Element {
         this.sprite = Sprite;
     }
 
-    void update() {
+    public void update() {
 
     }
 

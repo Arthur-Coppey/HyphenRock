@@ -4,25 +4,28 @@ import java.util.Observable;
 
 import contract.Direction;
 import contract.IModel;
+import model.dao.DAOMap;
 import model.element.Element;
 
 public final class Model extends Observable implements IModel {
 
     /** The helloWorld. */
-    private Element[][] map;
-    private int         score;
-    private final Map   mapMaker;
+    private Element[][]  map;
+    private int          score;
+    private final Map    mapMaker;
+    private final DAOMap daoMap;
 
     public Model() {
-
-        this.mapMaker = new Map();
+        this.daoMap = new DAOMap(DBConnection.getInstance().getConnection());
+        this.mapMaker = DAOMap.loadMap();
     }
 
     @Override
-    public void gameUpdate(Direction direction) {
-        this.map.player.playerUpdate(direction);
-        for (final Element E : this.map.getElements()) {
-            E.update(this.map);
+    public void gameUpdate(Direction direction) throws Exception {
+        this.mapMaker.getPlayer().playerUpdate(direction, this.mapMaker);
+        for (final Element E : this.mapMaker.getElements()) {
+            E.update();
+
         }
     }
 
