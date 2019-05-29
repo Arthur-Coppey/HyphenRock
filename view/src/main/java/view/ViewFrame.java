@@ -27,44 +27,12 @@ class ViewFrame extends JFrame  implements KeyListener {
 	private Camera camera;
 	private JFrame frame = new JFrame("HyphenRock");
 	
-	//private final File groundImageFile = new File("C:\\ground.png");
-	//private final File wallImageFile = new File("C:\\wall.png");
 	private int cellWidth = 32;
 	private int cellHeight = 32;
-	//private final BufferedImage img;
-	//private final BufferedImage groundImage;
-	//private final BufferedImage wallImage;
-	//private final Graphics g;
 	
 	public ViewFrame(final IModel model) throws HeadlessException, IOException {
 		this.camera = new Camera();
-		//this.img = new BufferedImage(this.camera.getWIDTH() * cellWidth, this.camera.getHEIGHT() * cellHeight, BufferedImage.TYPE_INT_ARGB);
-		//this.g= img.getGraphics();
-//
-		//this.groundImage = ImageIO.read(groundImageFile);
-		//this.wallImage = ImageIO.read(wallImageFile);
-		//this.backgroundMapMaking(this.groundImage, this.wallImage);
-		
-
 	}
-
-//	public ViewFrame(final IModel model, final GraphicsConfiguration gc) {
-//		super(gc);
-//		this.buildViewFrame(model);
-//		groundImage = ImageIO.read(groundImageFile);
-//	}
-//
-//	public ViewFrame(final IModel model, final String title) throws HeadlessException {
-//		super(title);
-//		this.buildViewFrame(model);
-//		groundImage = ImageIO.read(groundImageFile);
-//	}
-//
-//	public ViewFrame(final IModel model, final String title, final GraphicsConfiguration gc) {
-//		super(title, gc);
-//		this.buildViewFrame(model);
-//		groundImage = ImageIO.read(groundImageFile);
-//	}
 
 	private IController getController() {
 		return this.controller;

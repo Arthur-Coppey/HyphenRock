@@ -13,4 +13,3 @@ public enum Direction {
 	
 	NULL
 }
-//

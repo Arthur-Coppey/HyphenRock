@@ -49,9 +49,12 @@ class ViewPanel extends JPanel implements Observer {
         graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
         graphics.setFont(font);
         graphics.setColor(Color.white);
-        graphics.drawString(this.score.getPlayerName() + " : " + this.score.getPlayerScore(), this.camera.getWIDTH() - 1, 0);
+        graphics.drawString(this.model.getPlayerName() + " : " + this.model.getPlayerScore(), this.camera.getWIDTH() - 1, 0);
         backgroundMapMaking(this.groundImage, this.wallImage, graphics);
     }
+    
+    
+    
     
     
     
@@ -62,6 +65,8 @@ class ViewPanel extends JPanel implements Observer {
     private void setViewFrame(final ViewFrame viewFrame) {
         this.viewFrame = viewFrame;
     }
+    
+    
     
     
     
