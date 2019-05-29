@@ -13,11 +13,13 @@ public class Rock extends Mobile {
     private static String        spritePath = "rock.jpg";
     private final static boolean unstable   = true;
 
-    Rock() throws IOException {
+    Rock(final int x, final int y) throws IOException {
         super(ImageIO.read(new File(Rock.spritePath)));
+        this.setX(x);
+        this.setY(y);
     }
 
-    public void update(Map map) throws Exception {
+    public void update(final Map map) throws Exception {
         final int x = this.getX();
         final int y = this.getY();
         final Element elementSouth = this.getSouth(map, x, y);
@@ -36,7 +38,8 @@ public class Rock extends Mobile {
             } else if ((this.getEast(map, x, y) == null) && (this.getSouthEast(map, x, y) == null)) {
                 this.setX(x + 1);
                 this.setFalling(true);
-            } else {
+            }
+            else {
                 this.setFalling(false);
             }
         }

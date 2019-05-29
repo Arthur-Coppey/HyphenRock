@@ -11,9 +11,11 @@ public class Mob extends Mobile {
     private static String spritePath = "mob.jpg";
     private int           direction;
 
-    Mob() throws IOException {
+    Mob(final int x, final int y) throws IOException {
         super(ImageIO.read(new File(Mob.spritePath)));
         this.setDirection(1);
+        this.setX(x);
+        this.setY(y);
     }
 
     @Override
@@ -47,7 +49,7 @@ public class Mob extends Mobile {
         return this.getInDirection(this.IntToDirection(this.getRotation(1)), map);
     }
 
-    private int getRotation(int way) {
+    private int getRotation(final int way) {
         return (this.direction + way) % 4;
     }
 

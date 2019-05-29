@@ -11,8 +11,10 @@ import model.Map;
 public class Player extends Mobile {
     private static String spritePath = "player.jpg";
 
-    Player() throws IOException {
+    Player(final int x, final int y) throws IOException {
         super(ImageIO.read(new File(Player.spritePath)));
+        this.setX(x);
+        this.setY(y);
     }
 
     @Override

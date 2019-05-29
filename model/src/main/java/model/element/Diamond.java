@@ -14,10 +14,11 @@ public class Diamond extends Mobile {
 
     Diamond(int x, int y) throws IOException {
         super(ImageIO.read(new File(Diamond.spritePath)));
-
+        this.setX(x);
+        this.setY(y);
     }
 
-    public void update(Map map) throws Exception {
+    public void update(final Map map) throws Exception {
         final int x = this.getX();
         final int y = this.getY();
 
@@ -31,10 +32,12 @@ public class Diamond extends Mobile {
             } else if ((this.getEast(map, x, y) == null) && (this.getSouthEast(map, x, y) == null)) {
                 this.setX(x + 1);
                 this.setFalling(true);
-            } else {
+            }
+            else {
                 this.setFalling(false);
             }
-        } else {
+        }
+        else {
             this.setFalling(false);
         }
     }
@@ -43,4 +46,3 @@ public class Diamond extends Mobile {
         return true;
     }
 }
-// oui

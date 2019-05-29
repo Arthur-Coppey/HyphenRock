@@ -1,3 +1,4 @@
+
 package contract;
 
 public enum Direction {
@@ -12,4 +13,4 @@ public enum Direction {
 
     NULL
 }
-//
+
