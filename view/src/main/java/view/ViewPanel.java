@@ -50,9 +50,12 @@ class ViewPanel extends JPanel implements Observer {
         graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
         graphics.setFont(font);
         graphics.setColor(Color.white);
-        graphics.drawString(this.score.getPlayerName() + " : " + this.score.getPlayerScore(), this.camera.getWIDTH() - 1, 0);
+        graphics.drawString(this.model.getPlayerName() + " : " + this.model.getPlayerScore(), this.camera.getWIDTH() - 1, 0);
         backgroundMapMaking(this.groundImage, this.wallImage, graphics);
     }
+    
+    
+    
     
     
     
@@ -63,6 +66,8 @@ class ViewPanel extends JPanel implements Observer {
     private void setViewFrame(final ViewFrame viewFrame) {
         this.viewFrame = viewFrame;
     }
+    
+    
     
     
     
@@ -83,32 +88,4 @@ class ViewPanel extends JPanel implements Observer {
 } 
 
 
-	private static final long serialVersionUID = -998294702363713521L;
 
-	private ViewFrame viewFrame;
-	private view.Camera camera;
-
-	public ViewPanel(final ViewFrame viewFrame) {
-		this.setViewFrame(viewFrame);
-		viewFrame.getModel().getObservable().addObserver(this);
-	}
-
-	@Override
-	public void update(final Observable arg0, final Object arg1) {
-		this.repaint();
-	}
-
-	@Override
-	protected void paintComponent(final Graphics graphics) {
-		graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
-		graphics.drawString("a string", 10, 20);
-	}
-
-	private ViewFrame getViewFrame() {
-		return this.viewFrame;
-	}
-
-	private void setViewFrame(final ViewFrame viewFrame) {
-		this.viewFrame = viewFrame;
-	}
-}
