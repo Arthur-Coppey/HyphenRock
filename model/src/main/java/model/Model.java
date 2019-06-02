@@ -5,49 +5,50 @@ import java.util.Observable;
 import contract.Direction;
 import contract.IModel;
 import model.dao.DAOMap;
+import model.dao.DBConnection;
 import model.element.Element;
 
 public final class Model extends Observable implements IModel {
 
-    /** The helloWorld. */
-    private Element[][]  map;
-    private int          score;
-    private final Map    mapMaker;
-    private final DAOMap daoMap;
+	/** The helloWorld. */
+	private Element[][] map;
+	private int score;
+	private final Map mapMaker;
+	private final DAOMap daoMap;
 
-    public Model() {
-        this.daoMap = new DAOMap(DBConnection.getInstance().getConnection());
-        this.mapMaker = DAOMap.loadMap();
-    }
+	public Model() {
+		this.daoMap = new DAOMap(DBConnection.getInstance().getConnection());
+		this.mapMaker = this.daoMap.loadMap(1);
+	}
 
-    @Override
-    public void gameUpdate(Direction direction) throws Exception {
-        this.mapMaker.getPlayer().playerUpdate(direction, this.mapMaker);
-        for (final Element E : this.mapMaker.getElements()) {
-            E.update();
+	@Override
+	public void gameUpdate(Direction direction) throws Exception {
+		this.mapMaker.getPlayer().playerUpdate(direction, this.mapMaker);
+		for (final Element E : this.mapMaker.getElements()) {
+			E.update();
 
-        }
-    }
+		}
+	}
 
-    public Element[][] getMap(int level) {
-        return this.map;
-    }
+	public Element[][] getMap(int level) {
+		return this.map;
+	}
 
-    @Override
-    public Observable getObservable() {
-        return this;
-    }
+	@Override
+	public Observable getObservable() {
+		return this;
+	}
 
-    public int getScore() {
-        return this.score;
-    }
+	public int getScore() {
+		return this.score;
+	}
 
-    public void setMap(Element[][] map) {
-        this.map = map;
-    }
+	public void setMap(Element[][] map) {
+		this.map = map;
+	}
 
-    public void setScore(int score) {
-        this.score = score;
-    }
+	public void setScore(int score) {
+		this.score = score;
+	}
 
 }

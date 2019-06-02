@@ -13,7 +13,12 @@ public class Loop extends java.util.TimerTask {
 
 	@Override
 	public void run() {
-		this.model.gameUpdate(this.directionOrder);
+		try {
+			this.model.gameUpdate(this.directionOrder);
+		} catch (final Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.setDirectionOrder(null);
 		System.out.println("aze");
 
