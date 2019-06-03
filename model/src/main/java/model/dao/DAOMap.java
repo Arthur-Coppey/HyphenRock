@@ -25,7 +25,7 @@ import model.element.ElementFactory;
 public class DAOMap {
     private final Connection connection;
     private ElementFactory   elementFactory;
-    
+
     /**
      * @param connection
      *                   the connection
@@ -40,7 +40,7 @@ public class DAOMap {
             error.printStackTrace();
         }
     }
-    
+
     public Map createMapFromFile(final String fileName) {
         Map map = null;
         try {
@@ -74,7 +74,7 @@ public class DAOMap {
         }
         return map;
     }
-
+    
     public Map loadMap(final int mapId) {
         Map             map               = null;
         final ResultSet mapResultSet      = this.getMapById(mapId);
@@ -93,7 +93,7 @@ public class DAOMap {
         }
         return map;
     }
-
+    
     public void saveMap(final Map map) {
         final int mapId = this.addMap(map);
         for (int i = 0; i < map.getMapping().length; i++ ) {
@@ -102,7 +102,7 @@ public class DAOMap {
             }
         }
     }
-
+    
     private void addCoordinates(final int elementId, final int mapId, final int elementX, final int elementY) {
         final String     query      = "{ call addCoordinates(?, ?, ?, ?) }";
         final Connection connection = this.connection;
@@ -119,10 +119,9 @@ public class DAOMap {
             exception.printStackTrace();
         }
     }
-
+    
     private int addElement(final Element element) {
         final String     query      = "{ call addElement(?, ?) }";
-        final ResultSet  result;
         final Connection connection = this.connection;
         int              elementId  = -1;
         long             time;
@@ -145,7 +144,7 @@ public class DAOMap {
         }
         return elementId;
     }
-    
+
     private int addMap(final Map map) {
         final String     query      = "{ call addMap(?, ?, ?, ?) }";
         final Connection connection = this.connection;
@@ -167,7 +166,7 @@ public class DAOMap {
         }
         return mapId;
     }
-
+    
     private int getElementIdByTime(final long time) {
         int              elementId  = 0;
         final String     query      = "{ call getElementIdByTime(?) }";
@@ -187,7 +186,7 @@ public class DAOMap {
         }
         return elementId;
     }
-
+    
     private ResultSet getElementsByMapId(final int mapId) {
         final String     query      = "{ call getElementsByMapId(?) }";
         ResultSet        resultSet  = null;
@@ -202,7 +201,7 @@ public class DAOMap {
         }
         return resultSet;
     }
-    
+
     private ResultSet getMapById(final int mapId) {
         final String     query      = "{ call getMapById(?) }";
         ResultSet        resultSet  = null;
@@ -217,7 +216,7 @@ public class DAOMap {
         }
         return resultSet;
     }
-    
+
     private int getMapIdByTime(final long time) {
         int              mapId      = 0;
         final String     query      = "{ call getMapIdByTime(?) }";
@@ -236,7 +235,7 @@ public class DAOMap {
         }
         return mapId;
     }
-
+    
     private Map setElementsFromResultSet(final Map map, final ResultSet elementsRes) throws Exception {
         String  elementType;
         int     x;
