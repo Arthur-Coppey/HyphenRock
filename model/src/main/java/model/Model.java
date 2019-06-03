@@ -13,7 +13,7 @@ public final class Model extends Observable implements IModel {
 
     private final DAOMap                 daoMap;
     private final GameSettingsProperties gameSettings = new GameSettingsProperties();
-    private final Map                    map;
+    private Map                          map;
     private Element[][]                  mapping;
     private int                          score;
 
@@ -22,16 +22,23 @@ public final class Model extends Observable implements IModel {
         this.map    = this.daoMap.loadMap(this.gameSettings.getMapId());
     }
 
+    public Map createMapFromFile(final String fileName) {
+        return this.daoMap.createMapFromFile(fileName);
+    }
+
     @Override
     public void gameUpdate(final Direction direction) throws Exception {
         this.map.getPlayer().playerUpdate(direction, this.map);
         for (final Element element : this.map.getElements()) {
             element.update();
-
         }
     }
 
-    public Element[][] getMap(final int level) {
+    public Map getMap() {
+        return this.map;
+    }
+    
+    public Element[][] getMapping(final int level) {
         return this.mapping;
     }
 
@@ -44,8 +51,16 @@ public final class Model extends Observable implements IModel {
         return this.score;
     }
 
-    public void setMap(final Element[][] map) {
-        this.mapping = map;
+    public void saveMap() {
+        this.daoMap.saveMap(this.map);
+    }
+
+    public void setMap(final Map map) {
+        this.map = map;
+    }
+
+    public void setMapping(final Element[][] mapping) {
+        this.mapping = mapping;
     }
 
     public void setScore(final int score) {
