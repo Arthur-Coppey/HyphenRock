@@ -4,6 +4,7 @@ import contract.Direction;
 import contract.IModel;
 
 public class Loop extends java.util.TimerTask {
+
     private Direction directionOrder = null;
     private IModel    model;
     

@@ -25,7 +25,6 @@ import model.element.ElementFactory;
 public class DAOMap {
     private final Connection connection;
     private ElementFactory   elementFactory;
-
     /**
      *
      */
@@ -68,7 +67,7 @@ public class DAOMap {
         }
         return map;
     }
-
+    
     public Map loadMap(final int mapId) {
         Map             map               = null;
         final ResultSet mapResultSet      = this.getMapById(mapId);
@@ -87,7 +86,7 @@ public class DAOMap {
         }
         return map;
     }
-
+    
     public void saveMap(final Map map) {
         final int         mapId    = this.addMap(map);
         int               elementId;
@@ -161,7 +160,7 @@ public class DAOMap {
         }
         return mapId;
     }
-
+    
     private ResultSet getElementsByMapId(final int mapId) {
         final String     query      = "{ call getElementsByMapId(?) }";
         ResultSet        resultSet  = null;
@@ -176,7 +175,7 @@ public class DAOMap {
         }
         return resultSet;
     }
-
+    
     private ResultSet getMapById(final int mapId) {
         final String     query      = "{ call getMapById(?) }";
         ResultSet        resultSet  = null;
