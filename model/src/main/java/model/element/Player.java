@@ -10,25 +10,25 @@ import model.Map;
 
 public class Player extends Mobile {
     private static String spritePath = "PlayerDown.png";
-    
+
     Player(final int x, final int y) throws IOException {
         super(ImageIO.read(new File(Player.spritePath)));
         this.setX(x);
         this.setY(y);
     }
-    
+
     @Override
     public void die(final Map map) throws Exception {
         this.explode(map);
         map.setElementToPosition(null, this.x, this.y);
         map.getElements().remove(map.getElementByPosition(this.x, this.y));
     }
-    
+
     @Override
     public boolean isAlive() {
         return true;
     }
-    
+
     public void playerUpdate(final Direction direction, final Map map) throws Exception {
         final int tempX = this.getX();
         final int tempY = this.getY();
@@ -56,10 +56,10 @@ public class Player extends Mobile {
             this.kill(map, this.getX(), this.getY());
         }
     }
-    
-    private void kill(final model.Map map, final int x, final int y) throws Exception {
+
+    private void kill(final Map map, final int x, final int y) throws Exception {
         map.setElementToPosition(null, x, y);
         map.getElements().remove(map.getElementByPosition(x, y));
     }
-    
+
 }
