@@ -9,22 +9,23 @@ import contract.Direction;
 import model.Map;
 
 public class Rock extends Mobile {
-    
+
     private static String        spritePath = "Rock.png";
+    @SuppressWarnings ("unused")
     private final static boolean unstable   = true;
-    
+
     Rock(final int x, final int y) throws IOException {
         super(ImageIO.read(new File(Rock.spritePath)));
         this.setX(x);
         this.setY(y);
     }
-    
+
     @Override
     public void update(final Map map) throws Exception {
         final int     x            = this.getX();
         final int     y            = this.getY();
         final Element elementSouth = this.getSouth(map, x, y);
-        
+
         if (this.isFalling() && elementSouth.isAlive()) {
             this.setFalling(false);
             elementSouth.die(map);
@@ -47,7 +48,7 @@ public class Rock extends Mobile {
             }
         }
     }
-    
+
     @Override
     public boolean use(final Direction direction, final Map map) throws Exception {
         final int directionInInt = this.DirectionToInt(direction);

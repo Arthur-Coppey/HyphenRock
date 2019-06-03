@@ -7,10 +7,11 @@ import javax.imageio.ImageIO;
 
 public class Wall extends Motionless {
     private static String        spritePath = "Wall.png";
+    @SuppressWarnings ("unused")
     private final static boolean unstable   = true;
-    
+
     Wall() throws IOException {
         super(ImageIO.read(new File(Wall.spritePath)));
-        
+
     }
 }

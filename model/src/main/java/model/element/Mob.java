@@ -10,34 +10,32 @@ import model.Map;
 public class Mob extends Mobile {
     private static String spritePath = "Mob2.png";
     private int           direction;
-    
+
     Mob(final int x, final int y) throws IOException {
         super(ImageIO.read(new File(Mob.spritePath)));
         this.setDirection(1);
         this.setX(x);
         this.setY(y);
     }
-    
+
     @Override
     public void die(final Map map) throws Exception {
         this.explode(map);
         map.setElementToPosition(null, this.x, this.y);
         map.getElements().remove(map.getElementByPosition(this.x, this.y));
     }
-    
+
     @Override
     public boolean isAlive() {
         return true;
     }
-    
+
     public void setDirection(final int direction) {
         this.direction = direction;
     }
-    
+
     @Override
     public void update(final Map map) throws Exception {
-        final int x = this.getX();
-        final int y = this.getY();
         if (this.getForward(map) != null) {
             this.moveForward(map);
         }
@@ -48,7 +46,7 @@ public class Mob extends Mobile {
             this.setDirection(this.getRotation(1));
         }
     }
-    
+
     @Override
     protected void explode(final Map map) throws Exception {
         int x;
@@ -60,23 +58,23 @@ public class Mob extends Mobile {
             map.getElements().remove(map.getElementByPosition(x, y));
         }
     }
-    
+
     private Element getForward(final Map map) throws Exception {
         return this.getInDirection(this.IntToDirection(this.direction), map);
     }
-    
+
     private Element getLeft(final Map map) throws Exception {
         return this.getInDirection(this.IntToDirection(this.getRotation(3)), map);
     }
-    
+
     private Element getRight(final Map map) throws Exception {
         return this.getInDirection(this.IntToDirection(this.getRotation(1)), map);
     }
-    
+
     private int getRotation(final int way) {
         return (this.direction + way) % 4;
     }
-    
+
     private void moveForward(final Map map) throws Exception {
         int check = 0;
         if (this.getLeft(map) != null) {
