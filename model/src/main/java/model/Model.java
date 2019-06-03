@@ -5,32 +5,41 @@ import java.util.Observable;
 import contract.Direction;
 import contract.IModel;
 import model.dao.DAOMap;
+import model.dao.DBConnection;
+import model.dao.GameSettingsProperties;
 import model.element.Element;
 
 public final class Model extends Observable implements IModel {
 
-    /** The helloWorld. */
-    private Element[][]  map;
-    private int          score;
-    private final Map    mapMaker;
-    private final DAOMap daoMap;
+    private final DAOMap                 daoMap;
+    private final GameSettingsProperties gameSettings = new GameSettingsProperties();
+    private Map                          map;
+    private Element[][]                  mapping;
+    private int                          score;
 
     public Model() {
         this.daoMap = new DAOMap(DBConnection.getInstance().getConnection());
-        this.mapMaker = DAOMap.loadMap();
+        this.map    = this.daoMap.loadMap(this.gameSettings.getMapId());
+    }
+
+    public Map createMapFromFile(final String fileName) {
+        return this.daoMap.createMapFromFile(fileName);
     }
 
     @Override
-    public void gameUpdate(Direction direction) throws Exception {
-        this.mapMaker.getPlayer().playerUpdate(direction, this.mapMaker);
-        for (final Element E : this.mapMaker.getElements()) {
-            E.update();
-
+    public void gameUpdate(final Direction direction) throws Exception {
+        this.map.getPlayer().playerUpdate(direction, this.map);
+        for (final Element element : this.map.getElements()) {
+            element.update();
         }
     }
 
-    public Element[][] getMap(int level) {
+    public Map getMap() {
         return this.map;
+    }
+    
+    public Element[][] getMapping(final int level) {
+        return this.mapping;
     }
 
     @Override
@@ -42,11 +51,19 @@ public final class Model extends Observable implements IModel {
         return this.score;
     }
 
-    public void setMap(Element[][] map) {
+    public void saveMap() {
+        this.daoMap.saveMap(this.map);
+    }
+
+    public void setMap(final Map map) {
         this.map = map;
     }
 
-    public void setScore(int score) {
+    public void setMapping(final Element[][] mapping) {
+        this.mapping = mapping;
+    }
+
+    public void setScore(final int score) {
         this.score = score;
     }
 
