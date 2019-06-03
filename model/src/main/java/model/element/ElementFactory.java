@@ -54,8 +54,13 @@ public class ElementFactory {
     }
     
     /**
-     * @param c
-     * @return
+     * @param symbol
+     *               the symbol used in the file
+     * @param x
+     *               the x coordinate
+     * @param y
+     *               the y coordinate
+     * @return an element whose class corresponds with the symbol given in input
      * @throws IOException
      */
     public Element createElementFromFileSymbol(final char symbol, final int x, final int y) throws IOException {

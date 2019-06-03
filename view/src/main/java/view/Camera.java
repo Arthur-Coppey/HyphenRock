@@ -1,46 +1,46 @@
 package view;
 
 public class Camera {
-	
-	private static int WIDTH = 20;
-	private static int HEIGHT = 20;
-	private int x = 0;
-	private int y = 0;
 
-	public Camera() {
-		// TODO Auto-generated constructor stub
-	}
+    private static int HEIGHT = 20;
+    private static int WIDTH  = 20;
+    private int        x      = 0;
+    private int        y      = 0;
 
-	public int getWIDTH() {
-		return this.WIDTH;
-	}
+    public Camera() {
+        // TODO Auto-generated constructor stub
+    }
 
-	public void setWIDTH(int WIDTH) {
-		this.WIDTH = WIDTH;
-	}
+    public int getHEIGHT() {
+        return Camera.HEIGHT;
+    }
 
-	public int getHEIGHT() {
-		return this.HEIGHT;
-	}
+    public int getWIDTH() {
+        return Camera.WIDTH;
+    }
 
-	public void setHEIGHT(int hEIGHT) {
-		this.HEIGHT = hEIGHT;
-	}
+    public int getX() {
+        return this.x;
+    }
 
-	public int getY() {
-		return this.y;
-	}
+    public int getY() {
+        return this.y;
+    }
 
-	public void setY(int y) {
-		this.y = y;
-	}
+    public void setHEIGHT(final int HEIGHT) {
+        Camera.HEIGHT = HEIGHT;
+    }
 
-	public int getX() {
-		return this.x;
-	}
+    public void setWIDTH(final int WIDTH) {
+        Camera.WIDTH = WIDTH;
+    }
 
-	public void setX(int x) {
-		this.x = x;
-	}
+    public void setX(final int x) {
+        this.x = x;
+    }
+
+    public void setY(final int y) {
+        this.y = y;
+    }
 
 }

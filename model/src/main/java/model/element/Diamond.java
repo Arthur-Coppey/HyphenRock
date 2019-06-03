@@ -11,18 +11,18 @@ import model.Map;
 public class Diamond extends Mobile {
     private static String        spritePath = "Diamond.png";
     private final static boolean unstable   = true;
-    
+
     Diamond(final int x, final int y) throws IOException {
         super(ImageIO.read(new File(Diamond.spritePath)));
         this.setX(x);
         this.setY(y);
     }
-    
+
     @Override
     public void update(final Map map) throws Exception {
         final int x = this.getX();
         final int y = this.getY();
-        
+
         if (this.getSouth(map, x, y) == null) {
             this.setY(y + 1);
             this.setFalling(true);
@@ -44,7 +44,7 @@ public class Diamond extends Mobile {
             this.setFalling(false);
         }
     }
-    
+
     public boolean use(final Direction direction) {
         return true;
     }
