@@ -88,6 +88,9 @@ public class DAOMap {
             map.setName(name);
             map = this.setElementsFromResultSet(map, elementsResultSet);
         }
+        catch (final SQLException error) {
+            System.out.println("couldn't find map with id " + mapId);
+        }
         catch (final Exception error) {
             error.printStackTrace();
         }
