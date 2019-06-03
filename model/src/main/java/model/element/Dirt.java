@@ -9,14 +9,14 @@ import contract.Direction;
 import model.Map;
 
 public class Dirt extends Motionless {
-    private static String spritePath = "dirt.jpg";
+	private static String spritePath = "src/main/resources/Dirt.png";
 
-    Dirt() throws IOException {
-        super(ImageIO.read(new File(Dirt.spritePath)));
-    }
+	Dirt() throws IOException {
+		super(ImageIO.read(new File(Dirt.spritePath)));
+	}
 
-    @Override
-    public boolean use(Direction direction, Map map) {
-        return true;
-    }
+	@Override
+	public boolean use(Direction direction, Map map) {
+		return true;
+	}
 }
