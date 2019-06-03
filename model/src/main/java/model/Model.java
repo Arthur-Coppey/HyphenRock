@@ -15,7 +15,6 @@ public final class Model extends Observable implements IModel {
     private final DAOMap                 daoMap;
     private final GameSettingsProperties gameSettings = new GameSettingsProperties();
     private Map                          map;
-    private Element[][]                  mapping;
     private int                          score;
     
     public Model() {
@@ -40,7 +39,7 @@ public final class Model extends Observable implements IModel {
     }
 
     public Element[][] getMapping() {
-        return this.mapping;
+        return this.map.getMapping();
     }
     
     @Override
@@ -52,6 +51,7 @@ public final class Model extends Observable implements IModel {
         return this.score;
     }
     
+    @Override
     public BufferedImage[][] getSprites() {
         final BufferedImage[][] sprites;
         final Element[][]       elements = this.getMapping();
@@ -70,10 +70,6 @@ public final class Model extends Observable implements IModel {
     
     public void setMap(final Map map) {
         this.map = map;
-    }
-    
-    public void setMapping(final Element[][] mapping) {
-        this.mapping = mapping;
     }
     
     public void setScore(final int score) {
