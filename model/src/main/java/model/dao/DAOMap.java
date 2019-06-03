@@ -3,7 +3,10 @@
  */
 package model.dao;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,14 +24,51 @@ import model.element.ElementFactory;
  */
 public class DAOMap {
     private final Connection connection;
-    
+    private ElementFactory   elementFactory;
+
     /**
      *
      */
     public DAOMap(final Connection connection) {
         this.connection = connection;
+        try {
+            this.elementFactory = new ElementFactory();
+        }
+        catch (final IOException error) {
+            // TODO Auto-generated catch block
+            error.printStackTrace();
+        }
     }
-    
+
+    public Map createMapFromFile(final String fileName) {
+        Map map = null;
+        try {
+            final BufferedReader buffer = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
+            String               line;
+            int                  y      = 0;
+            int                  width;
+            int                  height;
+            Element              element;
+            width  = Integer.parseInt(buffer.readLine());
+            height = Integer.parseInt(buffer.readLine());
+            map    = new Map(width, height);
+            while ((line = buffer.readLine()) != null) {
+                for (int x = 0; x < line.toCharArray().length; x++ ) {
+                    System.out.println(line.toCharArray()[x]);
+                    element = this.elementFactory.createElementFromFileSymbol(line.toCharArray()[x], x, y);
+                    map.setElementToPosition(element, x, y);
+                }
+                y++ ;
+            }
+            buffer.close();
+        }
+        catch (final Exception error) {
+            // TODO Auto-generated catch block
+            error.printStackTrace();
+        }
+        return map;
+    }
+
     public Map loadMap(final int mapId) {
         Map             map               = null;
         final ResultSet mapResultSet      = this.getMapById(mapId);
@@ -47,7 +87,7 @@ public class DAOMap {
         }
         return map;
     }
-    
+
     public void saveMap(final Map map) {
         final int         mapId    = this.addMap(map);
         int               elementId;
@@ -75,7 +115,7 @@ public class DAOMap {
             exception.printStackTrace();
         }
     }
-
+    
     private int addElement(final Element element) {
         final String     query      = "{ call addElement(?) }";
         ResultSet        result;
@@ -121,7 +161,7 @@ public class DAOMap {
         }
         return mapId;
     }
-    
+
     private ResultSet getElementsByMapId(final int mapId) {
         final String     query      = "{ call getElementsByMapId(?) }";
         ResultSet        resultSet  = null;
@@ -136,7 +176,7 @@ public class DAOMap {
         }
         return resultSet;
     }
-    
+
     private ResultSet getMapById(final int mapId) {
         final String     query      = "{ call getMapById(?) }";
         ResultSet        resultSet  = null;
@@ -154,43 +194,18 @@ public class DAOMap {
 
     private Map setElementsFromResultSet(final Map map, final ResultSet elementsRes)
         throws SQLException, IOException, Exception {
-        String               elementType;
-        int                  x;
-        int                  y;
-        final ElementFactory factory = new ElementFactory();
+        String  elementType;
+        int     x;
+        int     y;
+        Element element;
         while (elementsRes.next()) {
             elementType = elementsRes.getString("TYPE");
             x           = elementsRes.getInt("X");
             y           = elementsRes.getInt("Y");
-            switch (elementType) {
-                case "Diamond":
-                    map.setElementToPosition(factory.createDiamond(x, y), x, y);
-                    map.getElements().add(map.getElementByPosition(x, y));
-                    break;
-                case "Dirt":
-                    map.setElementToPosition(factory.createDirt(), x, y);
-                    break;
-                case "Exit":
-                    map.setElementToPosition(factory.createExit(), x, y);
-                    break;
-                case "Mob":
-                    map.setElementToPosition(factory.createMob(x, y), x, y);
-                    map.getElements().add(map.getElementByPosition(x, y));
-                    break;
-                case "Player":
-                    map.setElementToPosition(factory.createPlayer(x, y), x, y);
-                    map.getElements().add(map.getElementByPosition(x, y));
-                    break;
-                case "Rock":
-                    map.setElementToPosition(factory.createRock(x, y), x, y);
-                    map.getElements().add(map.getElementByPosition(x, y));
-                    break;
-                case "Wall":
-                    map.setElementToPosition(factory.createWall(), x, y);
-                    break;
-                default:
-                    map.setElementToPosition(null, x, y);
-                    break;
+            element     = this.elementFactory.createElementFromClassName(elementType, x, y);
+            map.setElementToPosition(element, x, y);
+            if ((elementType != "Dirt") && (elementType != "Exit") && (elementType != "Wall")) {
+                map.getElements().add(element);
             }
         }
         return map;
