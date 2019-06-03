@@ -13,16 +13,17 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 class ViewPanel extends JPanel implements Observer {
-    
+
     private static final long serialVersionUID = -998294702363713521L;
-    
+
     private final Camera camera;
     private final Font   font;
-    
+
     private final BufferedImage groundImage;
     private final File          groundImageFile = new File("C:\\ground.png");
+    private BufferedImage[][]   sprites;
     private ViewFrame           viewFrame;
-    
+
     public ViewPanel(final ViewFrame viewFrame) throws IOException {
         this.setViewFrame(viewFrame);
         viewFrame.getModel().getObservable().addObserver(this);
@@ -34,23 +35,23 @@ class ViewPanel extends JPanel implements Observer {
         );
         this.groundImage = ImageIO.read(this.groundImageFile);
     }
-    
+
     public void backgroundMapMaking(final Graphics graphics) {
         for (int xCell = 0; xCell <= this.camera.getWIDTH(); xCell++ ) {
             for (int yCell = 0; yCell <= this.camera.getHEIGHT(); yCell++ ) {
                 graphics.drawImage(this.groundImage, xCell * ViewFrame.getCellwidth(), yCell * ViewFrame.getCellheight(), this);
-                
+
             }
-            
+
         }
     }
-    
+
     @Override
     public void update(final Observable arg0, final Object arg1) {
-        this.viewFrame.getModel().getMap();
+        this.sprites = this.viewFrame.getModel().getSprites();
         this.repaint();
     }
-    
+
     @Override
     protected void paintComponent(final Graphics graphics) {
         graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
@@ -60,11 +61,7 @@ class ViewPanel extends JPanel implements Observer {
         // this.score.getPlayerScore(), this.camera.getWIDTH() - 1, 0);
         this.backgroundMapMaking(graphics);
     }
-    
-    private ViewFrame getViewFrame() {
-        return this.viewFrame;
-    }
-    
+
     private void setViewFrame(final ViewFrame viewFrame) {
         this.viewFrame = viewFrame;
     }
