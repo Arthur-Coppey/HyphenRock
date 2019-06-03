@@ -25,6 +25,7 @@ import model.element.ElementFactory;
 public class DAOMap {
     private final Connection connection;
     private ElementFactory   elementFactory;
+
     /**
      *
      */
@@ -122,7 +123,12 @@ public class DAOMap {
         int              elementId  = -1;
         try {
             final PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, element.getClass().getSimpleName());
+            if (element != null) {
+                preparedStatement.setString(1, element.getClass().getSimpleName());
+            }
+            else {
+                preparedStatement.setString(1, "Void");
+            }
             final int rowAffected = preparedStatement.executeUpdate();
             if (rowAffected == 1) {
                 result = preparedStatement.getGeneratedKeys();
