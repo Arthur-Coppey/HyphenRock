@@ -49,21 +49,26 @@ public class DAOMap {
             int                  width;
             int                  height;
             Element              element;
+            String               elementName;
             width  = Integer.parseInt(buffer.readLine());
             height = Integer.parseInt(buffer.readLine());
             map    = new Map(width, height);
             while ((line = buffer.readLine()) != null) {
                 for (int x = 0; x < line.toCharArray().length; x++ ) {
-                    System.out.println(line.toCharArray()[x]);
                     element = this.elementFactory.createElementFromFileSymbol(line.toCharArray()[x], x, y);
                     map.setElementToPosition(element, x, y);
+                    if (element != null) {
+                        elementName = element.getClass().getSimpleName();
+                        if ((elementName != "Dirt") && (elementName != "Wall") && (elementName != "Exit")) {
+                            map.getElements().add(element);
+                        }
+                    }
                 }
                 y++ ;
             }
             buffer.close();
         }
         catch (final Exception error) {
-            // TODO Auto-generated catch block
             error.printStackTrace();
         }
         return map;
@@ -89,27 +94,25 @@ public class DAOMap {
     }
     
     public void saveMap(final Map map) {
-        final int         mapId    = this.addMap(map);
-        int               elementId;
-        final Element[][] elements = map.getMapping();
-        for (int i = 0; i < elements.length; i++ ) {
-            for (int j = 0; j < elements[i].length; j++ ) {
-                elementId = this.addElement(elements[i][j]);
-                this.addCoordinates(elementId, mapId, i, j);
+        final int mapId = this.addMap(map);
+        for (int i = 0; i < map.getMapping().length; i++ ) {
+            for (int j = 0; j < map.getMapping()[i].length; j++ ) {
+                this.addCoordinates(this.addElement(map.getMapping()[i][j]), mapId, i, j);
             }
         }
     }
     
-    private void addCoordinates(final int elementId, final int mapId, final int x, final int y) {
+    private void addCoordinates(final int elementId, final int mapId, final int elementX, final int elementY) {
         final String     query      = "{ call addCoordinates(?, ?, ?, ?) }";
         final Connection connection = this.connection;
         try {
             final CallableStatement statement = connection.prepareCall(query);
-            statement.setInt(1, elementId);
-            statement.setInt(2, mapId);
-            statement.setInt(3, x);
-            statement.setInt(4, y);
-            statement.executeQuery();
+            statement.setInt("elementId", elementId);
+            statement.setInt("mapId", mapId);
+            statement.setInt("elementX", elementX);
+            statement.setInt("elementY", elementY);
+            statement.executeUpdate();
+            statement.close();
         }
         catch (final Exception exception) {
             exception.printStackTrace();
@@ -117,10 +120,11 @@ public class DAOMap {
     }
     
     private int addElement(final Element element) {
-        final String     query      = "{ call addElement(?) }";
-        ResultSet        result;
+        final String     query      = "{ call addElement(?, ?) }";
+        final ResultSet  result;
         final Connection connection = this.connection;
         int              elementId  = -1;
+        long             time;
         try {
             final PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             if (element != null) {
@@ -129,13 +133,11 @@ public class DAOMap {
             else {
                 preparedStatement.setString(1, "Void");
             }
-            final int rowAffected = preparedStatement.executeUpdate();
-            if (rowAffected == 1) {
-                result = preparedStatement.getGeneratedKeys();
-                if (result.next()) {
-                    elementId = result.getInt(1);
-                }
-            }
+            time = System.nanoTime();
+            preparedStatement.setLong(2, time);
+            preparedStatement.executeUpdate();
+            elementId = this.getElementIdByTime(time);
+            preparedStatement.close();
         }
         catch (final SQLException exception) {
             exception.printStackTrace();
@@ -144,27 +146,45 @@ public class DAOMap {
     }
 
     private int addMap(final Map map) {
-        final String     query      = "{ call addMap(?, ?, ?) }";
-        ResultSet        result;
+        final String     query      = "{ call addMap(?, ?, ?, ?) }";
         final Connection connection = this.connection;
         int              mapId      = -1;
+        long             time;
         try {
             final PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, map.getName());
             preparedStatement.setInt(2, map.getWidth());
             preparedStatement.setInt(3, map.getHeight());
-            final int rowAffected = preparedStatement.executeUpdate();
-            if (rowAffected == 1) {
-                result = preparedStatement.getGeneratedKeys();
-                if (result.next()) {
-                    mapId = result.getInt(1);
-                }
-            }
+            time = System.nanoTime();
+            preparedStatement.setLong(4, time);
+            preparedStatement.executeUpdate();
+            mapId = this.getMapIdByTime(time);
+            preparedStatement.close();
         }
         catch (final SQLException exception) {
             exception.printStackTrace();
         }
         return mapId;
+    }
+    
+    private int getElementIdByTime(final long time) {
+        int              elementId  = 0;
+        final String     query      = "{ call getElementIdByTime(?) }";
+        ResultSet        result     = null;
+        final Connection connection = this.connection;
+        try {
+            final CallableStatement statement = connection.prepareCall(query);
+            statement.setLong(1, time);
+            result = statement.executeQuery();
+            if (result.next()) {
+                elementId = result.getInt(1);
+            }
+            statement.close();
+        }
+        catch (final Exception error) {
+            error.printStackTrace();
+        }
+        return elementId;
     }
     
     private ResultSet getElementsByMapId(final int mapId) {
@@ -181,7 +201,7 @@ public class DAOMap {
         }
         return resultSet;
     }
-    
+
     private ResultSet getMapById(final int mapId) {
         final String     query      = "{ call getMapById(?) }";
         ResultSet        resultSet  = null;
@@ -197,8 +217,26 @@ public class DAOMap {
         return resultSet;
     }
 
-    private Map setElementsFromResultSet(final Map map, final ResultSet elementsRes)
-        throws SQLException, IOException, Exception {
+    private int getMapIdByTime(final long time) {
+        int              mapId      = 0;
+        final String     query      = "{ call getMapIdByTime(?) }";
+        ResultSet        result     = null;
+        final Connection connection = this.connection;
+        try {
+            final CallableStatement statement = connection.prepareCall(query);
+            statement.setLong(1, time);
+            result = statement.executeQuery();
+            if (result.next()) {
+                mapId = result.getInt(1);
+            }
+        }
+        catch (final Exception error) {
+            error.printStackTrace();
+        }
+        return mapId;
+    }
+    
+    private Map setElementsFromResultSet(final Map map, final ResultSet elementsRes) throws Exception {
         String  elementType;
         int     x;
         int     y;
