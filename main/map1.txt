@@ -1,24 +1,24 @@
 40
 22
-WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-W..d...r.rdr.......... ..r. .......r..rW
-Wr....r... . ......r r....r... ... ....W
-W.r.. r..d.r. ...r... .r.... ..r. .. drW
-W. ... ..r.  ..... ....r....d..........W
-W...r....rr .r... . d.. ...rd..r..r... W
-W.r.... .....r ..r......  .... ..r.. r.W
-W...wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww...rW
-W.... .r.... ....r.. .. ..r.... .......W
-W. .......r............r...drr..d.r.r..W
-WP..r.... r.rr.d.....r..r......r.r..drXW
-W..rr ....r.rr..r..r......... ..r......W
-W.....d......... ..... ..d...r.....r...W
-Wd....r.r..r.......r.... ...  r.... ...W
-W. .wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww.r.rW
-W.... . ...r...r.... .. .r......... ..rW
-W.......r .......r....... ..r...r ...rrW
-W .d...r .....r. rr.....d..............W
-Wr... .. .. ...r....r.r...r..r.r......rW
-Wr..r. ...dd. ........ ...r.....r... d W
-W..rr..dr.........r...rr.... ...r ....rW
-WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+w..d...r.rdr.......... ..r. .......r..rw
+wr....r... . ......r r....r... ... ....w
+w.r.. r..d.r. ...r... .r.... ..r. .. drw
+w. ... ..r.  ..... ....r....d..........w
+w...r....rr .r... . d.. ...rd..r..r... w
+w.r.... .....r ..r......  .... ..r.. r.w
+w...wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww...rw
+w.... .r.... ....r.. .. ..r.... .......w
+w. .......r............r...drr..d.r.r..w
+wP..r.... r.rr.d.....r..r......r.r..drXw
+w..rr ....r.rr..r..r......... ..r......w
+w.....d......... ..... ..d...r.....r...w
+wd....r.r..r.......r.... ...  r.... ...w
+w. .wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww.r.rw
+w.... . ...r...r.... .. .r......... ..rw
+w.......r .......r....... ..r...r ...rrw
+w .d...r .....r. rr.....d..............w
+wr... .. .. ...r....r.r...r..r.r......rw
+wr..r. ...dd. ........ ...r.....r... d w
+w..rr..dr.........r...rr.... ...r ....rw
+wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww

@@ -40,7 +40,6 @@ public final class Controller implements IController {
 
 	@Override
 	public void orderPerform(final Direction direction) {
-		System.out.println(direction);
 		if (this.getLoop().getDirectionOrder() == Direction.NULL) {
 
 			this.getLoop().setDirectionOrder(direction);

@@ -3,7 +3,7 @@ package view;
 public class Camera {
 
 	private static int HEIGHT = 21;
-	private static int WIDTH = 21;
+	private static int WIDTH = 39;
 	private int x = 0;
 	private int y = 0;
 

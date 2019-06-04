@@ -12,7 +12,7 @@ public class Diamond extends Mobile {
 	private static String spritePath = "Diamond.png";
 	// @SuppressWarnings("unused")
 
-	Diamond(final int x, final int y) throws IOException {
+	public Diamond(final int x, final int y) throws IOException {
 		super(ImageIO.read(new File(Diamond.spritePath)));
 		this.setX(x);
 		this.setY(y);
