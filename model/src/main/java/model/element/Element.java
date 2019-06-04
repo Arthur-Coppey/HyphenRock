@@ -7,7 +7,7 @@ import contract.Direction;
 import model.Map;
 
 public abstract class Element {
-	private final static boolean unstable = false;
+	protected boolean unstable = false;
 	private BufferedImage sprite;
 
 	Element(BufferedImage Sprite) throws IOException {
@@ -22,25 +22,30 @@ public abstract class Element {
 		return this.sprite;
 	}
 
-	public boolean isAlive() {
-		return false;
-	}
-
 	public boolean isUnstable() {
-		return Element.unstable;
+		return this.unstable;
 	}
 
 	public void setSprite(BufferedImage Sprite) {
 		this.sprite = Sprite;
 	}
 
-	public void update() {
+	public synchronized void update() {
 
 	}
 
 	public boolean use(Direction direction, model.Map map) throws Exception {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	protected synchronized void kill(final Map map, final int x, final int y) throws Exception {
+		if (map.getElements().indexOf(map.getElementByPosition(x, y)) != -1) {
+			map.getElements().remove(map.getElementByPosition(x, y));
+
+		}
+		map.setElementToPosition(null, x, y);
+
 	}
 
 }

@@ -9,7 +9,7 @@ import contract.IView;
 
 public final class Controller implements IController {
 
-	private final int FPS = 1;
+	private final int FPS = 4;
 
 	private Loop loop;
 

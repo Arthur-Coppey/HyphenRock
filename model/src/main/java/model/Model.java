@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Observable;
 
 import contract.Direction;
@@ -9,6 +10,7 @@ import model.dao.DAOMap;
 import model.dao.DBConnection;
 import model.dao.GameSettingsProperties;
 import model.element.Element;
+import model.element.Mobile;
 
 public final class Model extends Observable implements IModel {
 
@@ -27,14 +29,23 @@ public final class Model extends Observable implements IModel {
 	}
 
 	@Override
-	public void gameUpdate(final Direction direction) throws Exception {
+	public synchronized void gameUpdate(final Direction direction) throws Exception {
+		// final int tempX;
+		// final int tempY;
 		// System.out.println(direction);
-		this.map.getPlayer().playerUpdate(direction, this.map);
-		for (final Element element : this.map.getElements()) {
-			// System.out.println(this.map.getElements().size());
-			// System.out.println(element.isAlive());
-			element.update();
+		if (this.map.getPlayer() == null) {
+			System.exit(0);
 		}
+		this.map.getPlayer().playerUpdate(direction, this.map);
+		final ArrayList<Element> elementsTemp = new ArrayList<Element>(this.map.getElements());
+		for (final Element element : elementsTemp) {
+			// tempX = ((Mobile) element).getX();
+			// tempY = ((Mobile) element).getY();
+
+			((Mobile) element).update(this.map);
+
+		}
+		this.map.setElements(elementsTemp);
 		// System.out.println("test");
 		this.setChanged();
 		this.notifyObservers();
@@ -58,7 +69,7 @@ public final class Model extends Observable implements IModel {
 	}
 
 	@Override
-	public BufferedImage[][] getSprites() {
+	public synchronized BufferedImage[][] getSprites() {
 		final BufferedImage[][] sprites;
 		final Element[][] elements = this.getMapping();
 		sprites = new BufferedImage[this.map.getWidth()][this.map.getHeight()];
@@ -82,6 +93,12 @@ public final class Model extends Observable implements IModel {
 
 	public void setScore(final int score) {
 		this.score = score;
+	}
+
+	private synchronized void kill(final Map map, final int x, final int y) throws Exception {
+		map.getElements().remove(map.getElementByPosition(x, y));
+		map.setElementToPosition(null, x, y);
+
 	}
 
 }
