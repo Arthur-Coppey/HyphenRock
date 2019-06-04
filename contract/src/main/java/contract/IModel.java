@@ -1,35 +1,15 @@
 package contract;
 
+import java.awt.image.BufferedImage;
 import java.util.Observable;
 
-import entity.HelloWorld;
-
-/**
- * The Interface IModel.
- *
- * @author Jean-Aymeric Diet
- */
 public interface IModel {
+	void gameUpdate(Direction direction) throws Exception;
 
-	/**
-	 * Gets the hello world.
-	 *
-	 * @return the helloworld entity
-	 */
-	HelloWorld getHelloWorld();
-
-	/**
-	 * Load the message.
-	 *
-	 * @param code
-	 *          the code
-	 */
-	void loadHelloWorld(String code);
-
-	/**
-	 * Gets the observable.
-	 *
-	 * @return the observable
-	 */
 	Observable getObservable();
+
+	/**
+	 *
+	 */
+	BufferedImage[][] getSprites();
 }

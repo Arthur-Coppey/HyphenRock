@@ -2,9 +2,9 @@
 <classpath>
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
+			<attribute name="test" value="true"/>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="test" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" output="target/classes" path="src/main/java">
@@ -24,7 +24,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="/contract"/>
-	<classpathentry kind="src" path="/entity"/>
 	<classpathentry kind="var" path="M2_REPO/mysql/mysql-connector-java/5.1.39/mysql-connector-java-5.1.39.jar" sourcepath="M2_REPO/mysql/mysql-connector-java/5.1.39/mysql-connector-java-5.1.39-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/junit/junit/4.12/junit-4.12.jar" sourcepath="M2_REPO/junit/junit/4.12/junit-4.12-sources.jar">
 		<attributes>

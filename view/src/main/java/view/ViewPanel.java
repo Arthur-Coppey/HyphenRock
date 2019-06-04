@@ -1,70 +1,82 @@
 package view;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-/**
- * The Class ViewPanel.
- *
- * @author Jean-Aymeric Diet
- */
 class ViewPanel extends JPanel implements Observer {
 
-	/** The view frame. */
-	private ViewFrame					viewFrame;
-	/** The Constant serialVersionUID. */
-	private static final long	serialVersionUID	= -998294702363713521L;
+	private static final long serialVersionUID = -998294702363713521L;
 
-	/**
-	 * Instantiates a new view panel.
-	 *
-	 * @param viewFrame
-	 *          the view frame
-	 */
-	public ViewPanel(final ViewFrame viewFrame) {
+	private final Camera camera;
+	private final Font font;
+
+	private final BufferedImage groundImage;
+	private final File groundImageFile = new File("BG.png");
+	private BufferedImage[][] sprites;
+	private ViewFrame viewFrame;
+
+	public ViewPanel(final ViewFrame viewFrame) throws IOException {
 		this.setViewFrame(viewFrame);
 		viewFrame.getModel().getObservable().addObserver(this);
+		this.font = new Font("Helvetica", Font.BOLD, 40);
+		this.camera = new Camera();
+		new BufferedImage(this.camera.getWIDTH() * ViewFrame.getCellwidth(),
+				this.camera.getHEIGHT() * ViewFrame.getCellheight(), BufferedImage.TYPE_INT_ARGB);
+		this.groundImage = ImageIO.read(this.groundImageFile);
 	}
 
-	/**
-	 * Gets the view frame.
-	 *
-	 * @return the view frame
-	 */
-	private ViewFrame getViewFrame() {
-		return this.viewFrame;
+	public void backgroundMapMaking(final Graphics graphics) {
+		for (int xCell = 0; xCell <= this.camera.getWIDTH(); xCell++) {
+			for (int yCell = 0; yCell <= this.camera.getHEIGHT(); yCell++) {
+				graphics.drawImage(this.groundImage, xCell * ViewFrame.getCellwidth(),
+						yCell * ViewFrame.getCellheight(), this);
+
+			}
+
+		}
 	}
 
-	/**
-	 * Sets the view frame.
-	 *
-	 * @param viewFrame
-	 *          the new view frame
-	 */
-	private void setViewFrame(final ViewFrame viewFrame) {
-		this.viewFrame = viewFrame;
+	public void mapMaking(final Graphics graphics) {
+		for (int xCell = 0; xCell <= this.camera.getWIDTH(); xCell++) {
+			for (int yCell = 0; yCell <= this.camera.getHEIGHT(); yCell++) {
+				if (this.sprites[xCell][yCell] != null) {
+					graphics.drawImage(this.sprites[xCell][yCell], xCell * ViewFrame.getCellwidth(),
+							yCell * ViewFrame.getCellheight(), this);
+				}
+
+			}
+
+		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
-	 */
+	@Override
 	public void update(final Observable arg0, final Object arg1) {
+		this.sprites = this.viewFrame.getModel().getSprites();
+
 		this.repaint();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
-	 */
 	@Override
 	protected void paintComponent(final Graphics graphics) {
 		graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
-		graphics.drawString(this.getViewFrame().getModel().getHelloWorld().getMessage(), 10, 20);
+		graphics.setFont(this.font);
+		graphics.setColor(Color.white);
+		// graphics.drawString(this.score.getPlayerName() + " : " +
+		// this.score.getPlayerScore(), this.camera.getWIDTH() - 1, 0);
+		this.backgroundMapMaking(graphics);
+		this.mapMaking(graphics);
+	}
+
+	private void setViewFrame(final ViewFrame viewFrame) {
+		this.viewFrame = viewFrame;
 	}
 }

@@ -4,31 +4,23 @@
  */
 package main;
 
-import contract.ControllerOrder;
+import java.awt.HeadlessException;
+import java.io.IOException;
+
 import controller.Controller;
 import model.Model;
 import view.View;
 
-/**
- * The Class Main.
- *
- * @author Jean-Aymeric Diet
- */
 public abstract class Main {
 
-    /**
-     * The main method.
-     *
-     * @param args
-     *            the arguments
-     */
-    public static void main(final String[] args) {
-        final Model model = new Model();
-        final View view = new View(model);
-        final Controller controller = new Controller(view, model);
-        view.setController(controller);
+	public static void main(final String[] args) throws HeadlessException, IOException {
+		final Model model = new Model();
+		final View view = new View(model);
+		final Controller controller = new Controller(view, model);
+		// model.setMap(model.createMapFromFile("map1.txt"));
+		// model.saveMap();
+		controller.control();
+		controller.gameStart();
+	}
 
-        controller.control();
-        controller.orderPerform(ControllerOrder.English);
-    }
 }

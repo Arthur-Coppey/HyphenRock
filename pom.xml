@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 >
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>jpublankproject</groupId>
+	<groupId>HyphenRock</groupId>
 	<artifactId>masterpom</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
@@ -16,16 +16,7 @@
 		<module>controller</module>
 		<module>contract</module>
 		<module>model</module>
-		<module>entity</module>
 	</modules>
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
@@ -149,4 +140,11 @@
       <url>scp://www.yourcompany.com/www/docs/project/</url>
     </site>
   </distributionManagement>
+  <dependencies>
+  	<dependency>
+  		<groupId>junit</groupId>
+  		<artifactId>junit</artifactId>
+  		<version>4.12</version>
+  	</dependency>
+  </dependencies>
 </project>

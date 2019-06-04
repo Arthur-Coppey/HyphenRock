@@ -1,94 +1,73 @@
 package controller;
 
-import contract.ControllerOrder;
+import java.util.Timer;
+
+import contract.Direction;
 import contract.IController;
 import contract.IModel;
 import contract.IView;
 
-/**
- * The Class Controller.
- */
 public final class Controller implements IController {
 
-	/** The view. */
-	private IView		view;
+	private final int FPS = 4;
 
-	/** The model. */
-	private IModel	model;
+	private Loop loop;
 
-	/**
-	 * Instantiates a new controller.
-	 *
-	 * @param view
-	 *          the view
-	 * @param model
-	 *          the model
-	 */
+	private IModel model;
+
+	private IView view;
+
 	public Controller(final IView view, final IModel model) {
 		this.setView(view);
 		this.setModel(model);
+		this.setLoop(new Loop(this.model));
+		this.view.setController(this);
 	}
 
-	/**
-     * Control.
-     */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IController#control()
-	 */
+	@Override
 	public void control() {
-		this.view.printMessage("Appuyer sur les touches 'E', 'F', 'D' ou 'I', pour afficher Hello world dans la langue d votre choix.");
+		// this.view.printMessage("Jouez avec ZQSD");
 	}
 
-	/**
-     * Sets the view.
-     *
-     * @param pview
-     *            the new view
-     */
-	private void setView(final IView pview) {
-		this.view = pview;
+	public void gameStart() {
+		final Timer timer = new Timer();
+		timer.schedule(this.getLoop(), 0, 1000 / this.FPS);
+	}
+
+	public Loop getLoop() {
+		return this.loop;
+	}
+
+	@Override
+	public void orderPerform(final Direction direction) {
+		if (this.getLoop().getDirectionOrder() == Direction.NULL) {
+
+			this.getLoop().setDirectionOrder(direction);
+		}
+	}
+
+	public void setLoop(final Loop loop) {
+		this.loop = loop;
 	}
 
 	/**
 	 * Sets the model.
 	 *
 	 * @param model
-	 *          the new model
+	 *            the new model
 	 */
 	private void setModel(final IModel model) {
 		this.model = model;
 	}
 
 	/**
-     * Order perform.
-     *
-     * @param controllerOrder
-     *            the controller order
-     */
-	/*
-	 * (non-Javadoc)
+	 * Sets the view.
 	 *
-	 * @see contract.IController#orderPerform(contract.ControllerOrder)
+	 * @param pview
+	 *            the new view
 	 */
-	public void orderPerform(final ControllerOrder controllerOrder) {
-		switch (controllerOrder) {
-			case English:
-				this.model.loadHelloWorld("GB");
-				break;
-			case Francais:
-				this.model.loadHelloWorld("FR");
-				break;
-			case Deutsch:
-				this.model.loadHelloWorld("DE");
-				break;
-			case Indonesia:
-				this.model.loadHelloWorld("ID");
-				break;
-			default:
-				break;
-		}
+	private void setView(final IView pview) {
+		this.view = pview;
 	}
 
 }
