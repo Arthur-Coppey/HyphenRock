@@ -10,7 +10,6 @@ import model.Map;
 
 public class Diamond extends Mobile {
 	private static String spritePath = "Diamond.png";
-	// @SuppressWarnings("unused")
 
 	public Diamond(final int x, final int y) throws IOException {
 		super(ImageIO.read(new File(Diamond.spritePath)));

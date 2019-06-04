@@ -14,7 +14,7 @@ public class DiamondTest {
 		this.tester = new Diamond(0, 0);
 	}
 
-	@Test
+	/*@Test
 	public final void testGetX() {
 		this.tester.setX(10);
 		Assert.assertEquals(10, this.tester.getX());
@@ -36,6 +36,6 @@ public class DiamondTest {
 	public final void testSetY() {
 		this.tester.setY(25);
 		Assert.assertEquals(25, this.tester.getY());
-	}
+	}*/
 
 }
