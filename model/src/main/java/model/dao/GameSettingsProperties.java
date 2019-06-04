@@ -19,15 +19,15 @@ public class GameSettingsProperties extends Properties {
     private static final long   serialVersionUID     = 1L;
     private int                 mapId;
     private String              username;
-    
+
     /**
      *
      */
     public GameSettingsProperties() {
         InputStream inputStream;
-
+        
         inputStream = this.getClass().getClassLoader().getResourceAsStream(GameSettingsProperties.PROPERTIES_FILE_NAME);
-
+        
         if (inputStream != null) {
             try {
                 this.load(inputStream);
@@ -39,24 +39,25 @@ public class GameSettingsProperties extends Properties {
             this.setUsername(this.getProperty("username"));
         }
     }
-    
+
     public int getMapId() {
         return this.mapId;
     }
-
+    
     public String getUsername() {
         return this.username;
     }
-
+    
     /**
      * @param property
+     *                 the property value
      */
     private void setMapId(final String property) {
         this.mapId = Integer.parseInt(property);
     }
-
+    
     private void setUsername(final String username) {
         this.username = username;
     }
-
+    
 }

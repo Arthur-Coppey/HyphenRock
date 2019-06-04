@@ -6,18 +6,17 @@ package contract;
  * @author Jean-Aymeric Diet
  */
 public interface IController {
-
-	/**
-	 * Control.
-	 */
-	public void control();
-
-	/**
-	 * Order perform.
-	 *
-	 * @param controllerOrder
-	 *            the controller order
-	 * @return
-	 */
-	public void orderPerform(Direction direction);
+    
+    /**
+     * Control.
+     */
+    public void control();
+    
+    /**
+     * Order perform.
+     *
+     * @param direction
+     *                  the direction given
+     */
+    public void orderPerform(Direction direction);
 }

@@ -7,40 +7,45 @@ import contract.Direction;
 import model.Map;
 
 public abstract class Element {
-    private final static boolean unstable = false;
-    private BufferedImage        sprite;
+	protected boolean unstable = false;
+	private BufferedImage sprite;
 
-    Element(BufferedImage Sprite) throws IOException {
-        this.sprite = Sprite;
-    }
+	Element(BufferedImage Sprite) throws IOException {
+		this.sprite = Sprite;
+	}
 
-    public void die(Map map) throws Exception {
+	public void die(Map map) throws Exception {
 
-    }
+	}
 
-    public BufferedImage getSprite() {
-        return this.sprite;
-    }
+	public BufferedImage getSprite() {
+		return this.sprite;
+	}
 
-    public boolean isAlive() {
-        return false;
-    }
+	public boolean isUnstable() {
+		return this.unstable;
+	}
 
-    public boolean isUnstable() {
-        return Element.unstable;
-    }
+	public void setSprite(BufferedImage Sprite) {
+		this.sprite = Sprite;
+	}
 
-    public void setSprite(BufferedImage Sprite) {
-        this.sprite = Sprite;
-    }
+	public synchronized void update() {
 
-    public void update() {
+	}
 
-    }
+	public boolean use(Direction direction, model.Map map) throws Exception {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
-    public boolean use(Direction direction, model.Map map) throws Exception {
-        // TODO Auto-generated method stub
-        return false;
-    }
+	protected synchronized void kill(final Map map, final int x, final int y) throws Exception {
+		if (map.getElements().indexOf(map.getElementByPosition(x, y)) != -1) {
+			map.getElements().remove(map.getElementByPosition(x, y));
+
+		}
+		map.setElementToPosition(null, x, y);
+
+	}
 
 }

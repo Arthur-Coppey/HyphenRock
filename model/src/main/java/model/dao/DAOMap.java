@@ -17,6 +17,7 @@ import java.sql.Statement;
 import model.Map;
 import model.element.Element;
 import model.element.ElementFactory;
+import model.element.Player;
 
 /**
  * @author Arthur Coppey
@@ -27,7 +28,8 @@ public class DAOMap {
     private ElementFactory   elementFactory;
 
     /**
-     *
+     * @param connection
+     *                   the connection
      */
     public DAOMap(final Connection connection) {
         this.connection = connection;
@@ -59,7 +61,7 @@ public class DAOMap {
                     map.setElementToPosition(element, x, y);
                     if (element != null) {
                         elementName = element.getClass().getSimpleName();
-                        if ((elementName != "Dirt") && (elementName != "Wall") && (elementName != "Exit")) {
+                        if ("Dirt".equals(elementName) && "Exit".equals(elementName) && "Wall".equals(elementName)) {
                             map.getElements().add(element);
                         }
                     }
@@ -79,13 +81,17 @@ public class DAOMap {
         final ResultSet mapResultSet      = this.getMapById(mapId);
         final ResultSet elementsResultSet = this.getElementsByMapId(mapId);
         try {
-            mapResultSet.next();
-            final String name   = mapResultSet.getString("NAME");
-            final int    width  = mapResultSet.getInt("WIDTH");
-            final int    height = mapResultSet.getInt("HEIGHT");
-            map = new Map(width, height);
-            map.setName(name);
-            map = this.setElementsFromResultSet(map, elementsResultSet);
+            if (mapResultSet.next()) {
+                final String name   = mapResultSet.getString("NAME");
+                final int    width  = mapResultSet.getInt("WIDTH");
+                final int    height = mapResultSet.getInt("HEIGHT");
+                map = new Map(width, height);
+                map.setName(name);
+                map = this.setElementsFromResultSet(map, elementsResultSet);
+            }
+        }
+        catch (final SQLException error) {
+            System.out.println("couldn't find map with id " + mapId);
         }
         catch (final Exception error) {
             error.printStackTrace();
@@ -121,7 +127,6 @@ public class DAOMap {
     
     private int addElement(final Element element) {
         final String     query      = "{ call addElement(?, ?) }";
-        final ResultSet  result;
         final Connection connection = this.connection;
         int              elementId  = -1;
         long             time;
@@ -240,16 +245,29 @@ public class DAOMap {
         String  elementType;
         int     x;
         int     y;
-        Element element;
+        Element element = null;
+        Player  player  = null;
         while (elementsRes.next()) {
             elementType = elementsRes.getString("TYPE");
             x           = elementsRes.getInt("X");
             y           = elementsRes.getInt("Y");
-            element     = this.elementFactory.createElementFromClassName(elementType, x, y);
+            if ("Player".equals(elementType)) {
+                player = this.elementFactory.createPlayer(x, y);
+                map.setPlayer(player);
+                element = player;
+            }
+            else {
+                element = this.elementFactory.createElementFromClassName(elementType, x, y);
+            }
             map.setElementToPosition(element, x, y);
-            if ((elementType != "Dirt") && (elementType != "Exit") && (elementType != "Wall")) {
+            if (
+                !("Dirt".equals(elementType)) && !("Exit".equals(elementType)) && !("Wall".equals(elementType))
+                    && (element != null)
+            ) {
                 map.getElements().add(element);
             }
+            player  = null;
+            element = null;
         }
         return map;
     }

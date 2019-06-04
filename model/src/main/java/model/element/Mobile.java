@@ -7,94 +7,100 @@ import contract.Direction;
 import model.Map;
 
 public abstract class Mobile extends Element {
-    protected int   x;
-    protected int   y;
-    private boolean falling = false;
+	protected int x;
+	protected int y;
+	private boolean falling = false;
 
-    public Mobile(final BufferedImage Sprite) throws IOException {
-        super(Sprite);
-    }
+	public Mobile(final BufferedImage Sprite) throws IOException {
+		super(Sprite);
+	}
 
-    protected int[] directionCoordinate(int direction) {
-        final int[][] tabDirection = { { -1, 0 }, { 0, -1 }, { 1, 0 }, { 0, 1 } };
-        return tabDirection[direction];
-    }
+	public int directionToInt(final Direction direction) {
+		System.out.println(Direction.valueOf(direction.toString()).ordinal());
+		return (Direction.valueOf(direction.toString()).ordinal());
+	}
 
-    public int DirectionToInt(Direction direction) {
-        return (Direction.valueOf(direction.toString()).ordinal());
-    }
+	public int getX() {
+		return this.x;
+	}
 
-    protected void explode(Map map) throws Exception {
-        int x;
-        int y;
-        for (int i = 0; i < 9; i++) {
-            x = ((i % 3) - 2);
-            y = (int) Math.floor(i / 3);
-            map.setElementToPosition(null, x, y);
-            map.getElements().remove(map.getElementByPosition(x, y));
-        }
-    }
+	public int getY() {
+		return this.y;
+	}
 
-    protected Element getEast(Map map, int x, int y) throws Exception {
-        return map.getElementByPosition(x + 1, y);
-    }
+	public Direction intToDirection(final int direction) {
+		return Direction.values()[direction];
+	}
 
-    protected Element getInDirection(Direction direction, Map map) throws Exception {
-        return map.getElementByPosition(this.directionCoordinate(this.DirectionToInt(direction))[0] + this.getX(),
-                this.directionCoordinate(this.DirectionToInt(direction))[1] + this.getY());
-    }
+	public boolean isFalling() {
+		return this.falling;
+	}
 
-    protected Element getSouth(Map map, int x, int y) throws Exception {
-        return map.getElementByPosition(x, y + 1);
-    }
+	@Override
+	public boolean use(Direction direction, Map map) throws Exception {
+		return super.use(direction, map);
+	}
 
-    protected Element getSouthEast(Map map, int x, int y) throws Exception {
-        return map.getElementByPosition(x + 1, y - 1);
-    }
+	public void setFalling(final boolean i) {
+		this.falling = i;
+	}
 
-    protected Element getSouthWest(Map map, int x, int y) throws Exception {
-        return map.getElementByPosition(x - 1, y - 1);
-    }
+	public void setX(final int x) {
+		this.x = x;
+	}
 
-    protected Element getWest(Map map, int x, int y) throws Exception {
-        return map.getElementByPosition(x - 1, y);
-    }
+	public void setY(final int y) {
+		this.y = y;
+	}
 
-    public int getX() {
-        return this.x;
-    }
+	/**
+	 * @param map
+	 *            the map on which the element is
+	 * @throws Exception
+	 *             any exception
+	 */
+	public void update(final Map map) throws Exception {
+		// TODO Auto-generated method stub
 
-    public int getY() {
-        return this.y;
-    }
+	}
 
-    public Direction IntToDirection(int direction) {
-        return Direction.values()[direction];
-    }
+	protected int[] directionCoordinate(final int direction) {
+		final int[][] tabDirection = { { 0, 1 }, { -1, 0 }, { 0, -1 }, { 1, 0 } };
+		return tabDirection[direction];
+	}
 
-    public boolean isFalling() {
-        return this.falling;
-    }
+	protected void explode(final Map map) throws Exception {
+		/*
+		 * int x; int y; for (int i = 0; i < 9; i++) { x = ((i % 3) - 2); y =
+		 * (int) Math.floor(i / 3); map.setElementToPosition(null, x, y);
+		 * map.getElements().remove(map.getElementByPosition(x, y)); }
+		 */
+	}
 
-    public void setFalling(final boolean i) {
-        this.falling = i;
-    }
+	protected Element getEast(final Map map, final int x, final int y) throws Exception {
+		return map.getElementByPosition(x + 1, y);
+	}
 
-    public void setX(final int x) {
-        this.x = x;
-    }
+	protected Element getInDirection(final Direction direction, final Map map) throws Exception {
+		return map.getElementByPosition(this.directionCoordinate(this.directionToInt(direction))[0] + this.getX(),
+				this.directionCoordinate(this.directionToInt(direction))[1] + this.getY());
+	}
 
-    public void setY(final int y) {
-        this.y = y;
-    }
+	protected Element getSouth(final Map map, final int x, final int y) throws Exception {
+		return map.getElementByPosition(x, y + 1);
 
-    /**
-     * @param map
-     * @throws Exception
-     */
-    public void update(final Map map) throws Exception {
-        // TODO Auto-generated method stub
-        
-    }
+	}
+
+	protected Element getSouthEast(final Map map, final int x, final int y) throws Exception {
+		return map.getElementByPosition(x + 1, y + 1);
+	}
+
+	protected Element getSouthWest(final Map map, final int x, final int y) throws Exception {
+		return map.getElementByPosition(x - 1, y + 1);
+	}
+
+	protected Element getWest(final Map map, final int x, final int y) throws Exception {
+		return map.getElementByPosition(x - 1, y);
+	}
 
 }

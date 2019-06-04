@@ -7,84 +7,92 @@ import model.element.Element;
 import model.element.Player;
 
 public class Map {
-    private ArrayList<Element>       elements;
-    private final int                height;
-    private final Element[][]        mapping;
-    private String                   name;
-    private Player                   player;
-    private HashMap<String, Integer> score;
-    private final int                width;
+	private ArrayList<Element> elements;
+	private final int height;
+	private final Element[][] mapping;
+	private String name;
+	private Player player;
+	private HashMap<String, Integer> score;
+	private final int width;
 
-    public Map(final int width, final int height) {
-        this.width    = width;
-        this.height   = height;
-        this.name     = "";
-        this.mapping  = new Element[width][height];
-        this.elements = new ArrayList<Element>();
-    }
+	public Map(final int width, final int height) {
+		this.width = width;
+		this.height = height;
+		this.name = "";
+		this.mapping = new Element[width][height];
+		this.elements = new ArrayList<Element>();
+	}
 
-    public Element getElementByPosition(final int x, final int y) throws Exception {
-        return this.mapping[x][y];
-    }
+	public synchronized Element getElementByPosition(final int x, final int y) {
 
-    /**
-     * @return the elements
-     */
-    public ArrayList<Element> getElements() {
-        return this.elements;
-    }
+		if ((x < 0) || (y < 0) || (x >= this.width) || (y >= this.height)) {
+			return null;
+		}
+		return this.mapping[x][y];
 
-    public int getHeight() {
-        return this.height;
-    }
+	}
 
-    /**
-     * @return the mapping
-     */
-    public Element[][] getMapping() {
-        return this.mapping;
-    }
+	/**
+	 * @return the elements
+	 */
+	public synchronized ArrayList<Element> getElements() {
+		return this.elements;
+	}
 
-    public String getName() {
-        return this.name;
-    }
-    
-    /**
-     * @return the player
-     */
-    public Player getPlayer() {
-        return this.player;
-    }
-    
-    public HashMap<String, Integer> getScore() {
-        return this.score;
-    }
-    
-    public int getWidth() {
-        return this.width;
-    }
-    
-    public void setElements(final ArrayList<Element> elements) {
-        this.elements = elements;
-    }
-    
-    public void setElementToPosition(final Element element, final int x, final int y) throws Exception {
-        this.mapping[x][y] = element;
-    }
+	public int getHeight() {
+		return this.height;
+	}
 
-    public void setName(final String name) {
-        this.name = name;
-    }
+	/**
+	 * @return the mapping
+	 */
+	public Element[][] getMapping() {
+		return this.mapping;
+	}
 
-    /**
-     * @param player
-     *               the player to set
-     */
-    public void setPlayer(final Player player) {
-        this.player = player;
-    }
-    
-    public void setScore(final HashMap<String, Integer> score) {
-        this.score = score;
-    }
+	public String getName() {
+		return this.name;
+	}
+
+	/**
+	 * @return the player
+	 */
+	public Player getPlayer() {
+		return this.player;
+	}
+
+	public HashMap<String, Integer> getScore() {
+		return this.score;
+	}
+
+	public int getWidth() {
+		return this.width;
+	}
+
+	public synchronized void setElements(final ArrayList<Element> elements) {
+		this.elements = elements;
+	}
+
+	public synchronized void setElementToPosition(final Element element, final int x, final int y) {
+		if ((x < 0) || (y < 0) || (x >= this.width) || (y >= this.height)) {
+			return;
+		}
+		this.mapping[x][y] = element;
+	}
+
+	public void setName(final String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @param element
+	 *            the player to set
+	 */
+	public void setPlayer(final Player element) {
+		this.player = element;
+	}
+
+	public void setScore(final HashMap<String, Integer> score) {
+		this.score = score;
+	}
 }
