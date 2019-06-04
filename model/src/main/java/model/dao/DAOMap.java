@@ -17,6 +17,7 @@ import java.sql.Statement;
 import model.Map;
 import model.element.Element;
 import model.element.ElementFactory;
+import model.element.Player;
 
 /**
  * @author Arthur Coppey
@@ -244,19 +245,26 @@ public class DAOMap {
         String  elementType;
         int     x;
         int     y;
-        Element element;
+        Element element = null;
+        Player  player  = null;
         while (elementsRes.next()) {
             elementType = elementsRes.getString("TYPE");
             x           = elementsRes.getInt("X");
             y           = elementsRes.getInt("Y");
-            element     = this.elementFactory.createElementFromClassName(elementType, x, y);
+            if ("Player".equals(elementType)) {
+                player = this.elementFactory.createPlayer(x, y);
+                map.setPlayer(player);
+                element = player;
+            }
+            else {
+                element = this.elementFactory.createElementFromClassName(elementType, x, y);
+            }
             map.setElementToPosition(element, x, y);
             if (!("Dirt".equals(elementType)) && !("Exit".equals(elementType)) && !("Wall".equals(elementType))) {
                 map.getElements().add(element);
-                if ("Player".equals(elementType)) {
-                    map.setPlayer(element);
-                }
             }
+            player  = null;
+            element = null;
         }
         return map;
     }
