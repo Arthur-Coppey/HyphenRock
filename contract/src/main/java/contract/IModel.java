@@ -4,12 +4,12 @@ import java.awt.image.BufferedImage;
 import java.util.Observable;
 
 public interface IModel {
-    void gameUpdate(Direction direction) throws Exception;
+	void gameUpdate(Direction direction) throws Exception;
 
-    Observable getObservable();
+	Observable getObservable();
 
-    /**
-     *
-     */
-    BufferedImage[][] getSprites();
+	/**
+	 *
+	 */
+	BufferedImage[][] getSprites();
 }
