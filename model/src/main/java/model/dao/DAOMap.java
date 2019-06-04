@@ -251,8 +251,11 @@ public class DAOMap {
             y           = elementsRes.getInt("Y");
             element     = this.elementFactory.createElementFromClassName(elementType, x, y);
             map.setElementToPosition(element, x, y);
-            if ("Dirt".equals(elementType) && "Exit".equals(elementType) && "Wall".equals(elementType)) {
+            if (!("Dirt".equals(elementType)) && !("Exit".equals(elementType)) && !("Wall".equals(elementType))) {
                 map.getElements().add(element);
+                if ("Player".equals(elementType)) {
+                    map.setPlayer(element);
+                }
             }
         }
         return map;

@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import model.element.Element;
-import model.element.Player;
 
 public class Map {
     private ArrayList<Element>       elements;
     private final int                height;
     private final Element[][]        mapping;
     private String                   name;
-    private Player                   player;
+    private Element                  player;
     private HashMap<String, Integer> score;
     private final int                width;
 
@@ -52,7 +51,7 @@ public class Map {
     /**
      * @return the player
      */
-    public Player getPlayer() {
+    public Element getPlayer() {
         return this.player;
     }
     
@@ -77,11 +76,11 @@ public class Map {
     }
 
     /**
-     * @param player
-     *               the player to set
+     * @param element
+     *                the player to set
      */
-    public void setPlayer(final Player player) {
-        this.player = player;
+    public void setPlayer(final Element element) {
+        this.player = element;
     }
     
     public void setScore(final HashMap<String, Integer> score) {
