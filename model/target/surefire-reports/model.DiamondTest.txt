@@ -1,0 +1,28 @@
+-------------------------------------------------------------------------------
+Test set: model.DiamondTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0.139 sec <<< FAILURE! - in model.DiamondTest
+testGetX(model.DiamondTest)  Time elapsed: 0.007 sec  <<< ERROR!
+javax.imageio.IIOException: Can't read input file!
+	at javax.imageio.ImageIO.read(ImageIO.java:1301)
+	at model.element.Diamond.<init>(Diamond.java:16)
+	at model.DiamondTest.<init>(DiamondTest.java:14)
+
+testGetY(model.DiamondTest)  Time elapsed: 0 sec  <<< ERROR!
+javax.imageio.IIOException: Can't read input file!
+	at javax.imageio.ImageIO.read(ImageIO.java:1301)
+	at model.element.Diamond.<init>(Diamond.java:16)
+	at model.DiamondTest.<init>(DiamondTest.java:14)
+
+testSetX(model.DiamondTest)  Time elapsed: 0 sec  <<< ERROR!
+javax.imageio.IIOException: Can't read input file!
+	at javax.imageio.ImageIO.read(ImageIO.java:1301)
+	at model.element.Diamond.<init>(Diamond.java:16)
+	at model.DiamondTest.<init>(DiamondTest.java:14)
+
+testSetY(model.DiamondTest)  Time elapsed: 0 sec  <<< ERROR!
+javax.imageio.IIOException: Can't read input file!
+	at javax.imageio.ImageIO.read(ImageIO.java:1301)
+	at model.element.Diamond.<init>(Diamond.java:16)
+	at model.DiamondTest.<init>(DiamondTest.java:14)
+
